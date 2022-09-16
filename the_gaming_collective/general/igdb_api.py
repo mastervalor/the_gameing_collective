@@ -4,10 +4,10 @@ wrapper = IGDBWrapper("bggfunr5gravmwck6xc6ftijd9f1sk", "1lq9cqswbvl6wiwqmbi8o4j
 
 class igdb_api:
     @classmethod
-    def api_call(cls):
+    def api_get_upcoming_games(cls, data):
         byte_array = wrapper.api_request(
             'games',
-            'fields id, name; where id = 740;'
+            f'fields id, name, cover.image_id; limit 25; where release_dates.date > {data} & (platforms = {167, 169}); sort date asc;'
         )
         return byte_array
 
@@ -20,9 +20,9 @@ class igdb_api:
         return byte_array
 
     @classmethod
-    def api_get_all_games(cls):
+    def api_get_games_by_genre(cls, data):
         byte_array = wrapper.api_request(
             'games',
-            'fields name; sort name asc; where external_games.category = 54;'
+            f'fields name, cover.image_id; limit 25; sort name asc; where genres = {data} & (platforms = {167, 169});'
         )
         return byte_array
