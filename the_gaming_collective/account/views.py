@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from general.igdb_api import igdb_api
 import json
 
 # Create your views here.
 
-def index(request):
+def test(request):
     request.session.flush()
     test = igdb_api.api_get_image_id()
     print(test)
@@ -18,3 +18,13 @@ def index(request):
         "format": ".jpg"
     }
     return render(request, "account_index.html", context)
+
+
+def index(request):
+    return render(request, "login_create.html")
+
+def account_creation(request):
+    return redirect("/finalize")
+
+def finalize(request):
+    return render(request, 'account_finalize.html')

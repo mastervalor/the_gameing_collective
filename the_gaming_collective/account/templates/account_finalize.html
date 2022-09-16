@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Finalize</title>
+</head>
+<body>
+    <h1>Finalize Your Account</h1>
+    <form action="/process" method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" value="session_id" name="username">
+        <br>
+        <label for="platforms">Platforms: </label>
+        <select name="platforms">
+            {% for platform in platforms %}
+                <option value="platform.id">{{platform.name}}</option>
+            {% endfor %}
+        </select>
+        <label for="devices">Devices: </label>
+        <select name="devices">
+            {% for device in devices %}
+                <option value="device.id">{{device.name}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Finalize" class="btn btn-primary btn-outline-dark">
+    </form>
+</body>
+</html>
