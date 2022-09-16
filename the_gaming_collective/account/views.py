@@ -4,23 +4,6 @@ import json
 
 # Create your views here.
 
-def test(request):
-    request.session.flush()
-    test = igdb_api.api_get_image_id()
-    print(test)
-    y = json.loads(test)
-<<<<<<< HEAD
-    print(y[0]['cover'])
-    x = y[0]['cover']
-    print(x['image_id'])
-    context = {
-        "image_id": x['image_id'],
-        "site_url": "https://images.igdb.com/igdb/image/upload/t_1080p/",
-        "format": ".jpg"
-    }
-    return render(request, "account_index.html", context)
-
-
 def index(request):
     return render(request, "login_create.html")
 
@@ -29,10 +12,3 @@ def account_creation(request):
 
 def finalize(request):
     return render(request, 'account_finalize.html')
-=======
-    print(y)
-    print(y[0]['name'])
-    print(y[0]['release_dates'][0]['human'])
-    
-    return render(request, "account_index.html", {'list': y})
->>>>>>> b0744e750e91808f6d9126e592e189d2ae2c6572
