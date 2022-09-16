@@ -12,9 +12,17 @@ class igdb_api:
         return byte_array
 
     @classmethod
-    def api_get_image_id(cls):
+    def api_get_game_pass_games(cls):
         byte_array = wrapper.api_request(
             'games',
-            'fields cover.image_id; where id = 740;'
+            'fields name, release_dates.human, release_dates.region, cover.image_id; limit 25; sort name asc; where external_games.category = 54;'
+        )
+        return byte_array
+
+    @classmethod
+    def api_get_all_games(cls):
+        byte_array = wrapper.api_request(
+            'games',
+            'fields name; sort name asc; where external_games.category = 54;'
         )
         return byte_array
