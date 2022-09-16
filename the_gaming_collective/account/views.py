@@ -9,6 +9,7 @@ def test(request):
     test = igdb_api.api_get_image_id()
     print(test)
     y = json.loads(test)
+<<<<<<< HEAD
     print(y[0]['cover'])
     x = y[0]['cover']
     print(x['image_id'])
@@ -28,3 +29,10 @@ def account_creation(request):
 
 def finalize(request):
     return render(request, 'account_finalize.html')
+=======
+    print(y)
+    print(y[0]['name'])
+    print(y[0]['release_dates'][0]['human'])
+    
+    return render(request, "account_index.html", {'list': y})
+>>>>>>> b0744e750e91808f6d9126e592e189d2ae2c6572

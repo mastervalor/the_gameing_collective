@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <img class="rounded img-fluid h-25 w-25" src="{{site_url}}{{image_id}}{{format}}" alt="Test">
+    <div class="outer_container">
+        <h1>Game Pass</h1>
+        <div class="inner_container d-flex" style="overflow-x: auto; white-space: nowrap;">
+            {% for x in list %}
+                <img class="rounded img-fluid h-25 w-25 m-2" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{x.cover.image_id}}.jpg" alt="Test">
+            {% endfor %} 
+        </div>
+    </div>
 </body>
 </html>
