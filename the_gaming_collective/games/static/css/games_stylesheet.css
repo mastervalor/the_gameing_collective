@@ -1,0 +1,5 @@
+.inner_container {
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 275px; 
+}

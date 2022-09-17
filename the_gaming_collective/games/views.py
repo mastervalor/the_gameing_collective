@@ -12,14 +12,48 @@ def index(request):
     seconds = (date.total_seconds())
     milliseconds = round(seconds * 1000)
 
+    # Upcoming PS5 and Xbox Series X|S games (Can be expanded to PC just needs to be worked)
     up_json = igdb_api.api_get_upcoming_games(milliseconds)
     up_games = json.loads(up_json)
 
+    #Game pass games
     gp_json = igdb_api.api_get_game_pass_games()
     gp_games = json.loads(gp_json)
 
-    adv_json = igdb_api.api_get_games_by_genre(31)
+    # doing genre pulls this way because if I try to pull all games there are too many
+    # and I'm unable to get a decent list even out of 500 results
+
+    #Adventure games
+    adv_json = igdb_api.api_get_games_by_genre(31, milliseconds)
     adv_games = json.loads(adv_json)
+
+    #FPS/TPS games
+    fps_json = igdb_api.api_get_games_by_genre(5, milliseconds)
+    fps_games = json.loads(fps_json)
+
+    #Fighting games
+    fight_json = igdb_api.api_get_games_by_genre(4, milliseconds)
+    fight_games = json.loads(fight_json)
+
+    #Racing games
+    race_json = igdb_api.api_get_games_by_genre(10, milliseconds)
+    race_games = json.loads(race_json)
+
+    #Sport games
+    sport_json = igdb_api.api_get_games_by_genre(14, milliseconds)
+    sport_games = json.loads(sport_json)
     
-    return render(request, "homepage.html", {'gp_list': gp_games, 'up_list': up_games, 'adv_list': adv_games
-    })
+    return render(request, "homepage.html", {'gp_list': gp_games, 'up_list': up_games, 'adv_list': adv_games,
+    'fps_list': fps_games, 'fight_list': fight_games, 'race_list': race_games, 'sport_list': sport_games})
+
+def games(request):
+    pass
+
+def one_game(request):
+    pass
+
+def users_games(request):
+    pass
+
+def view_all(request):
+    pass
