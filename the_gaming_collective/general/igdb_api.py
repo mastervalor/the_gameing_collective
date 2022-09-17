@@ -28,10 +28,26 @@ class igdb_api:
         return byte_array
 
     @classmethod
+    def api_get_games_by_genre_extended(cls, data, time):
+        byte_array = wrapper.api_request(
+            'games',
+            f'fields name, cover.image_id; limit 500; where genres = {data} & platforms = {167, 169} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
+        )
+        return byte_array
+
+    @classmethod
     def api_get_games_by_platform(cls, data, time):
         byte_array = wrapper.api_request(
             'games',
             f'fields name, cover.image_id; limit 25; where platforms = {data} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
+        )
+        return byte_array
+
+    @classmethod
+    def api_get_games_by_platform_extended(cls, data, time):
+        byte_array = wrapper.api_request(
+            'games',
+            f'fields name, cover.image_id; limit 500; where platforms = {data} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
         )
         return byte_array
 

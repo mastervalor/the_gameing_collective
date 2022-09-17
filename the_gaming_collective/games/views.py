@@ -76,8 +76,25 @@ def one_game(request, game_id):
 def users_games(request):
     return render(request, "users_games.hmtl")
 
-def view_all(request):
-    return render(request, "view_all.html")
+def view_all_platform(request, platform_id):
+    date = datetime.utcnow() - datetime(1970, 1, 1)
+    seconds = (date.total_seconds())
+    milliseconds = round(seconds * 1000)
+
+    plat_json = igdb_api.api_get_games_by_platform_extended(platform_id, milliseconds)
+    plat_games = json.loads(plat_json)
+
+    return render(request, "view_all_plat.html", {'plat_list': plat_games})
+
+def view_all_genre(request, genre_id):
+    date = datetime.utcnow() - datetime(1970, 1, 1)
+    seconds = (date.total_seconds())
+    milliseconds = round(seconds * 1000)
+
+    genre_json = igdb_api.api_get_games_by_genre_extended(genre_id, milliseconds)
+    genre_games = json.loads(genre_json)
+
+    return render(request, "view_all_genre.html", {'genre_list': genre_games})
 
 def review_game(request, game_id):
     game_json = igdb_api.api_get_one_game(game_id)

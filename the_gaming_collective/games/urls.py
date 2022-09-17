@@ -6,7 +6,8 @@ urlpatterns = [
     path('games_list', views.games),
     path('<int:game_id>', views.one_game),
     path('your_games', views.users_games),
-    path('view_all/<str:game_type>', views.view_all),
+    path('view_all_platform/<int:platform_id>', views.view_all_platform),
+    path('view_all_genre/<int:genre_id>', views.view_all_genre),
     path('<int:game_id>/review', views.review_game),
     path('submit_review/<int:game_id>', views.submit_review),
 ]
