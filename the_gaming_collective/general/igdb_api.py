@@ -28,6 +28,14 @@ class igdb_api:
         return byte_array
 
     @classmethod
+    def api_get_games_by_platform(cls, data, time):
+        byte_array = wrapper.api_request(
+            'games',
+            f'fields name, cover.image_id; limit 25; where platforms = {data} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
+        )
+        return byte_array
+
+    @classmethod
     def api_get_one_game(cls, data):
         byte_array = wrapper.api_request(
             'games',
