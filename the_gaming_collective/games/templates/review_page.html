@@ -39,5 +39,67 @@
             </form>
         </div>
     </nav>
+    {% for game in one_game %}
+        <div class="top_container d-flex m-5" style="height: 300px">
+            <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{game.cover.image_id}}.jpg" alt="{{game_pass.name}}">
+            <div class="inner_container">
+                <h1 class="ms-2" style="font-family: Arial, Helvetica, sans-serif; color: white; font-size: 60pt;">{{game.name}}</h1>
+                {% for game_company in game.involved_companies %} 
+                    <!--Find Developer-->
+                    {% if game_company.developer == true %} 
+                        <h5 class="m-2" style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game_company.company.name}}</h5>
+                    <!--Find Publisher-->
+                    {% elif game_company.publisher == true %} 
+                        <h5 class="m-2" style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game_company.company.name}}</h5>
+                    {% endif %}
+                {% endfor %} 
+            </div>
+        </div>
+        {% csrf_token %}
+        <form action="/games/submit_review/{{game.id}}">
+            <div class="middle_container d-flex m-5">
+                <div class="plat ms-2">
+                    <label for="platform" style="font-family: Arial, Helvetica, sans-serif; color: white;">Platform:</label>
+                    <select name="platform" id="platform">
+                        <option value="nintendo">Nintendo</option>
+                        <option value="pc">PC</option>
+                        <option value="playstation">Playstation</option>
+                        <option value="xbox">Xbox</option>
+                    </select>
+                </div>
+                <div class="score ms-5">
+                    <label for="review_score" style="font-family: Arial, Helvetica, sans-serif; color: white;">Score:</label>
+                    <select name="platform" id="platform">
+                        <option value="0">0</option>
+                        <option value="0.25">0.25</option>
+                        <option value="0.5">0.5</option>
+                        <option value="0.75">0.75</option>
+                        <option value="1">1</option>
+                        <option value="1.25">1.25</option>
+                        <option value="1.5">1.5</option>
+                        <option value="1.75">1.75</option>
+                        <option value="2">2</option>
+                        <option value="2.25">2.25</option>
+                        <option value="2.5">2.5</option>
+                        <option value="2.75">2.75</option>
+                        <option value="3">3</option>
+                        <option value="3.25">3.25</option>
+                        <option value="3.5">3.5</option>
+                        <option value="3.75">3.75</option>
+                        <option value="4">4</option>
+                        <option value="4.25">4.25</option>
+                        <option value="4.5">4.5</option>
+                        <option value="4.75">4.75</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="review_text_container m-5 d-flex flex-column">
+                <p style="font-family: Arial, Helvetica, sans-serif; color: white;">Review</p>
+                <textarea id="review_area" name="review" rows="10" cols="100" placeholder="Enter Review Here"></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-primary ms-5" style="height: 45px; width: 200px">Submit Review</button>
+        </form>
+    {% endfor %}
 </body>
 </html>

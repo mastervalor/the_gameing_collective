@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from general.igdb_api import igdb_api
 from datetime import datetime
 import json
@@ -61,7 +61,9 @@ def view_all(request):
     return render(request, "view_all.html")
 
 def review_game(request, game_id):
-    return render(request, "review_page.html")
+    game_json = igdb_api.api_get_one_game(game_id)
+    game = json.loads(game_json)
+    return render(request, "review_page.html", {'one_game': game})
 
 def submit_review(request, game_id):
-    return redirect(f"/{game_id}")
+    return redirect(f"/games/{game_id}")
