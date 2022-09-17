@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'css/games_stylesheet.css' %}">
+</head>
+<body style="background-color: #303030">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
+        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand ms-2" href="/homepage">Gaming Collective</a>
+        
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/games">Games</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/friends">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/messages">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/account">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/help">Help</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 d-flex">
+                {% csrf_token %}
+                <input class="form-control ms-sm-2 me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    {% for game in one_game %}
+        <div class="top_container d-flex m-5" style="height: 300px">
+            <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{game.cover.image_id}}.jpg" alt="{{game_pass.name}}">
+            <div class="inner_container">
+                <h1 class="ms-2" style="font-family: Arial, Helvetica, sans-serif; color: white; font-size: 60pt;">{{game.name}}</h1>
+                {% for game_company in game.involved_companies %} 
+                    <!--Find Developer-->
+                    {% if game_company.developer == true %} 
+                        <h5 class="m-2" style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game_company.company.name}}</h5>
+                    <!--Find Publisher-->
+                    {% elif game_company.publisher == true %} 
+                        <h5 class="m-2" style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game_company.company.name}}</h5>
+                    {% endif %}
+                {% endfor %} 
+            </div>
+            <button class="btn btn-outline-primary col-6 mx-auto" data-bs-toggle="button" autocomplete="off" style="height: 45px; width: 100px">Like</button>
+        </div>
+        <div class="middle_container d-flex m-5">
+            <p style="font-family: Arial, Helvetica, sans-serif; color: white;">Platforms:&nbsp;</p>
+            {% for plat in game.platforms %} 
+                <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{plat.name}} &nbsp;</p>
+            {% endfor %}
+            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white;">Genres:&nbsp;</p>
+            {% for genre in game.genres %} 
+                <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{genre.name}} &nbsp;</p>
+            {% endfor %}
+            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white;">Game Modes:&nbsp;</p>
+            {% for mode in game.game_modes %} 
+                <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{mode.name}} &nbsp;</p>
+            {% endfor %}
+        </div>
+        <div class="summary_container m-5">
+            <h5 style="font-family: Arial, Helvetica, sans-serif; color: white;">Description</h5>
+            <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game.summary}}</p>
+        </div>
+        <div class="review_container m-5">
+            <h5 style="font-family: Arial, Helvetica, sans-serif; color: white;">Reviews</h5>
+        </div>
+        <div class="footer_container d-flex">
+            <button class="btn btn-outline-danger col-6 mx-auto" data-bs-toggle="button" autocomplete="off" style="height: 45px; width: 100px" onclick="history.back()">Back</button>
+            <a href="/games/{{game.id}}/review" class="btn btn-outline-light col-6 mx-auto" data-bs-toggle="button" autocomplete="off" style="height: 45px; width: 200px">Write Review</a>
+        </div>
+    {% endfor %}
+</body>
+</html>

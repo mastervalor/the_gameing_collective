@@ -47,13 +47,21 @@ def index(request):
     'fps_list': fps_games, 'fight_list': fight_games, 'race_list': race_games, 'sport_list': sport_games})
 
 def games(request):
-    pass
+    return render(request, "games.html")
 
-def one_game(request):
-    pass
+def one_game(request, game_id):
+    game_json = igdb_api.api_get_one_game(game_id)
+    game = json.loads(game_json)
+    return render(request, "one_game.html", {'one_game': game})
 
 def users_games(request):
-    pass
+    return render(request, "users_games.hmtl")
 
 def view_all(request):
-    pass
+    return render(request, "view_all.html")
+
+def review_game(request, game_id):
+    return render(request, "review_page.html")
+
+def submit_review(request, game_id):
+    return redirect(f"/{game_id}")

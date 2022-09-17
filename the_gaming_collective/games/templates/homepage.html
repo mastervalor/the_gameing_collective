@@ -43,7 +43,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Upcoming Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for upcoming in up_list %}
-                <a href="/{{upcoming.id}}/{{upcoming.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{upcoming.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming.cover.image_id}}.jpg" alt="{{upcoming.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -53,7 +53,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Game Pass</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in gp_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -63,7 +63,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Adventure Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in adv_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -73,7 +73,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">FPS / TPS Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in fps_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -83,7 +83,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Fighting Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in fight_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -93,7 +93,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Racing Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in race_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
@@ -103,7 +103,7 @@
         <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Sports Games</h2>
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in sport_list %}
-                <a href="/{{games.id}}/{{games.name}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
+                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
                     <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
