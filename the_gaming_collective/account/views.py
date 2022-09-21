@@ -7,17 +7,31 @@ import json
 # Create your views here.
 
 def index(request):
-    errors = Users.objects.default_user_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-            return redirect('/')
-        else:
             return render(request, "login_create.html")
 
 def account_creation(request):
-    
-    return redirect("/finalize")
+    errors = Users.objects.default_user_validator(request.POST)
+    print(errors)
+    if len(errors) > 0:
+        request.session['first_name'] = request.POST['first_name']
+        request.session['last_name'] = request.POST['last_name']
+        request.session['email'] = request.POST['email']
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+    else:
+        try:
+            for key in request.session.keys():
+                del request.session[key]
+        except KeyError:
+            print('no sessions')
+        new_user = Users.objects.create(first_name = request.POST['first_name'], last_name = request.POST['last_name'], email = request.POST['email'], password = request.POST['password'])
+        request.session['user_id'] = new_user.id
+        return redirect('finalize')
+        
 
 def finalize(request):
+    if 'user_id' not in request.session:
+        return redirect('/')
+    Users.objects
     return render(request, 'account_finalize.html')

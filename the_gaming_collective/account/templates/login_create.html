@@ -15,7 +15,7 @@
             {% if messages %}
                 <ul class="messages">    
                     {% for message in messages %}    
-                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                        <li>{{ message }}</li>    
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -23,15 +23,15 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="first_name">First Name:</label>
-                    <input type="text" value="{{session['first_name']}}" name="first_name" class="form-control">
+                    <input type="text" value="{{request.session.first_name}}" name="first_name" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="last_name">Last Name:</label>
-                    <input type="text" value="{{session['last_name']}}" name="last_name" class="form-control">
+                    <input type="text" value="{{request.session.last_name}}" name="last_name" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="text" value="{{session['email']}}" name="email" class="form-control">
+                    <input type="text" value="{{request.session.email}}" name="email" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
