@@ -4,29 +4,6 @@ import re
 
 PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
 
-class Users(models.Model):
-    email = models.EmailField('User Email')
-    password = models.CharField(max_length=45)
-    first_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
-    username = models.CharField(max_length=45, blank=True)
-    friend_id = models.ManyToManyField("self")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = UserManager()
-    
-class Platforms(models.Model):
-    platform = models.CharField(max_length=45)
-    fav_platforms = models.ManyToManyField(Users, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-class Devices(models.Model):
-    device = models.CharField(max_length=45)
-    fav_devices = models.ManyToManyField(Users, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
 class UserManager(models.Manager):
     def default_user_validator(self, postData):
         errors = {}
@@ -53,3 +30,26 @@ class UserManager(models.Manager):
         if postData['username'] == Users.objects.filter(username=f"{postData['username']}"):
             errors['username_match'] = "That username already excits"
         return errors
+    
+class Users(models.Model):
+    email = models.EmailField('User Email')
+    password = models.CharField(max_length=45)
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    username = models.CharField(max_length=45, blank=True)
+    friend_id = models.ManyToManyField("self")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
+    
+class Platforms(models.Model):
+    platform = models.CharField(max_length=45)
+    fav_platforms = models.ManyToManyField(Users, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Devices(models.Model):
+    device = models.CharField(max_length=45)
+    fav_devices = models.ManyToManyField(Users, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

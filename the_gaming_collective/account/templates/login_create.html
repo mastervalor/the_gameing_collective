@@ -12,17 +12,15 @@
     <div class="d-flex justify-content-evenly">
         <div class="col-4 p-4 bg-dark text-light">
             <h1 class="text-primary">Register</h1>
+            {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <form action="/user/create" method="POST">
                 {% csrf_token %}
-                {% with messages = get_flashed_messages(category_filter=['register']) %}
-                    {% if messages %}
-                        <div class="alert alert-danger" role="alert">
-                            {% for message in messages %}
-                                <p>{{message}}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
                 <div class="form-group">
                     <label for="first_name">First Name:</label>
                     <input type="text" value="{{session['first_name']}}" name="first_name" class="form-control">
@@ -50,15 +48,6 @@
             <h1 class="text-success">Login</h1>
             <form action="/user/login" method="POST">
                 {% csrf_token %}
-                {% with messages = get_flashed_messages(category_filter=['login']) %}
-                    {% if messages %}
-                        <div class="alert alert-danger" role="alert">
-                            {% for message in messages %}
-                                <p>{{message}}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
                 <div class="form-group">
                     <label for="email">Email: </label>
                     <input type="text" name="email" class="form-control">
