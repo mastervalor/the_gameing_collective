@@ -17,10 +17,22 @@ def index(request):
     up_games = json.loads(up_json)
 
     #Game pass games
-    gp_json = igdb_api.api_get_game_pass_games()
+    gp_json = igdb_api.api_get_game_by_marketplace(54)
     gp_games = json.loads(gp_json)
+
+    #Game xbox market place
+    xbm_json = igdb_api.api_get_game_by_marketplace(31)
+    xbm_games = json.loads(xbm_json)
+
+    #Game playstation store
+    pss_json = igdb_api.api_get_game_by_marketplace(36)
+    pss_games = json.loads(pss_json)
+
+    #Game epic store
+    epic_json = igdb_api.api_get_game_by_marketplace(26)
+    epic_games = json.loads(epic_json)
     
-    return render(request, "homepage.html", {'gp_list': gp_games, 'up_list': up_games})
+    return render(request, "homepage.html", {'gp_list': gp_games, 'up_list': up_games, 'xbm_list':xbm_games, 'pss_list': pss_games, 'epic_list':epic_games})
 
 def games(request):
 
@@ -95,6 +107,16 @@ def view_all_genre(request, genre_id):
     genre_games = json.loads(genre_json)
 
     return render(request, "view_all_genre.html", {'genre_list': genre_games})
+
+def view_all_marketplace(request, marketplace_id):
+    date = datetime.utcnow() - datetime(1970, 1, 1)
+    seconds = (date.total_seconds())
+    milliseconds = round(seconds * 1000)
+
+    mrkt_json = igdb_api.api_get_game_by_marketplace_extended(marketplace_id, milliseconds)
+    mrkt_games = json.loads(mrkt_json)
+
+    return render(request, "view_all_marketplace.html", {'mrkt_list': mrkt_games})
 
 def review_game(request, game_id):
     game_json = igdb_api.api_get_one_game(game_id)
