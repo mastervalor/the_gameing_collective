@@ -33,5 +33,7 @@ def account_creation(request):
 def finalize(request):
     if 'user_id' not in request.session:
         return redirect('/')
-    Users.objects
+    print(request.POST['platforms'])
+    user = Users.objects.get(id=request.session['user_id'])
+    # user.plat
     return render(request, 'account_finalize.html')

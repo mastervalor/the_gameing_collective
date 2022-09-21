@@ -42,14 +42,10 @@ class Users(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
     
-class Platforms(models.Model):
-    platform = models.CharField(max_length=45)
-    fav_platforms = models.ManyToManyField(Users, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 class Devices(models.Model):
     device = models.CharField(max_length=45)
+    dev_id = models.IntegerField()
     fav_devices = models.ManyToManyField(Users, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
