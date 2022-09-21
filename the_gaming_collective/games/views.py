@@ -125,3 +125,6 @@ def review_game(request, game_id):
 
 def submit_review(request, game_id):
     return redirect(f"/games/{game_id}")
+
+def search(request):
+    pass
