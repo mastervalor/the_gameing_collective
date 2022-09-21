@@ -12,10 +12,18 @@ class igdb_api:
         return byte_array
 
     @classmethod
-    def api_get_game_pass_games(cls):
+    def api_get_game_by_marketplace(cls, data):
         byte_array = wrapper.api_request(
             'games',
-            'fields name, release_dates.human, release_dates.region, cover.image_id; limit 25; sort release_dates.date asc; where external_games.category = 54;'
+            f'fields name, release_dates.human, release_dates.region, cover.image_id; limit 25; sort release_dates.date asc; where external_games.category = {data};'
+        )
+        return byte_array
+
+    @classmethod
+    def api_get_game_by_marketplace_extended(cls, data, time):
+        byte_array = wrapper.api_request(
+            'games',
+            f'fields name, release_dates.human, release_dates.region, cover.image_id; limit 500; sort release_dates.date asc; where external_games.category = {data};'
         )
         return byte_array
 
