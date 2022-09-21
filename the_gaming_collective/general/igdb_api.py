@@ -66,3 +66,11 @@ class igdb_api:
             f'fields name, cover.image_id, genres.name, involved_companies.company.name, platforms.name, summary, game_modes.name; where id = {data};'
         )
         return byte_array
+
+    @classmethod
+    def api_search_game_by_name(cls, data):
+        byte_array = wrapper.api_request(
+            'games',
+            f'search "{data}"; fields name, release_dates.human, release_dates.region, cover.image_id; limit 25;'
+        )
+        return byte_array

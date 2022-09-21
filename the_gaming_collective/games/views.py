@@ -127,4 +127,8 @@ def submit_review(request, game_id):
     return redirect(f"/games/{game_id}")
 
 def search(request):
-    pass
+    search_from_form = request.POST['search_name']
+    print(search_from_form)
+    search_json = igdb_api.api_search_game_by_name(search_from_form)
+    search_results = json.loads(search_json)
+    return render(request, "search_results_page.html", {'search_list': search_results})

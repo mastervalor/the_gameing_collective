@@ -32,9 +32,9 @@
                     <a class="nav-link ms-2" href="/help">Help</a>
                 </li>
             </ul>
-            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
+            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex">
                 {% csrf_token %}
-                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control ms-sm-2 me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
             </form>
         </div>
@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="d-flex flex-wrap flex-row mx-auto justify-content-center">
-        {% for games in mrkt_list %}
+        {% for games in search_list %}
             <a href="/games/{{games.id}}" class="d-flex flex-rows m-2" style="width: 16.25%;">
                 <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
             </a>
