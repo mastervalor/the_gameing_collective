@@ -11,4 +11,5 @@ urlpatterns = [
     path('view_all_marketplace/<int:marketplace_id>', views.view_all_marketplace),
     path('<int:game_id>/review', views.review_game),
     path('submit_review/<int:game_id>', views.submit_review),
+    path('search_results', views.search),
 ]

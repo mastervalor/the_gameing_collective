@@ -32,9 +32,9 @@
                     <a class="nav-link ms-2" href="/help">Help</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0 d-flex">
+            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
                 {% csrf_token %}
-                <input class="form-control ms-sm-2 me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
             </form>
         </div>
@@ -99,7 +99,7 @@
                 <textarea id="review_area" name="review" rows="10" cols="100" placeholder="Enter Review Here"></textarea>
             </div>
             <button type="submit" class="btn btn-outline-primary ms-5" style="height: 45px; width: 200px">Submit Review</button>
-            <button class="btn btn-outline-danger col-6 mx-auto" data-bs-toggle="button" autocomplete="off" style="height: 45px; width: 100px" onclick="history.back()">Back</button>
+            <button class="btn btn-outline-danger col-6 mx-auto" autocomplete="off" style="height: 45px; width: 100px" onclick="history.back()">Back</button>
         </form>
     {% endfor %}
 </body>
