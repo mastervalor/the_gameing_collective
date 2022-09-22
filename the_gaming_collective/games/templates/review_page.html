@@ -55,8 +55,8 @@
                 {% endfor %} 
             </div>
         </div>
-        {% csrf_token %}
-        <form action="/games/submit_review/{{game.id}}">
+        <form action="/games/submit_review/{{game.id}}" method="post">
+            {% csrf_token %}
             <div class="middle_container d-flex m-5">
                 <div class="plat ms-2">
                     <label for="platform" style="font-family: Arial, Helvetica, sans-serif; color: white;">Platform:</label>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="score ms-5">
                     <label for="review_score" style="font-family: Arial, Helvetica, sans-serif; color: white;">Score:</label>
-                    <select name="platform" id="platform">
+                    <select name="review_score" id="score">
                         <option value="0">0</option>
                         <option value="0.25">0.25</option>
                         <option value="0.5">0.5</option>

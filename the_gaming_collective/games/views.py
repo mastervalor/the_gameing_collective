@@ -1,6 +1,9 @@
+from operator import ne
 from django.shortcuts import render, redirect
 from general.igdb_api import igdb_api
 from datetime import datetime
+from account.models import Users, Devices
+from .models import Games, Reviews
 import json
 
 # Create your views here.
@@ -54,6 +57,10 @@ def games(request):
     pc_json = igdb_api.api_get_games_by_platform(6, milliseconds)
     pc_games = json.loads(pc_json)
 
+    #Switch games
+    nin_json = igdb_api.api_get_games_by_platform(130, milliseconds)
+    nin_games = json.loads(nin_json)
+
     # doing genre pulls this way because if I try to pull all games there are too many
     # and I'm unable to get a decent list even out of 500 results
 
@@ -78,15 +85,30 @@ def games(request):
     sport_games = json.loads(sport_json)
     return render(request, "games_page.html", {'adv_list': adv_games,
     'fps_list': fps_games, 'fight_list': fight_games, 'race_list': race_games, 'sport_list': sport_games,
-    'ps5_list': ps5_games, 'xbox_xs_list': xbox_xs_games, 'pc_list': pc_games})
+    'ps5_list': ps5_games, 'xbox_xs_list': xbox_xs_games, 'pc_list': pc_games, 'nin_list': nin_games})
 
 def one_game(request, game_id):
+
     game_json = igdb_api.api_get_one_game(game_id)
     game = json.loads(game_json)
-    return render(request, "one_game.html", {'one_game': game})
+    
+    game_reviews = Reviews.objects.all()
 
-def users_games(request):
-    return render(request, "users_games.hmtl")
+    #user_context = {
+    #    'user_id': request.session['user_id']
+    #}
+    return render(request, "one_game.html", {'one_game': game, 'game_reviews': game_reviews})
+
+def users_games(request, user_id):
+    if 'user_id' not in request.session:
+        return redirect('/')
+    game_json = []
+    all_like = Games.objects.get(fav_games = request.session['user_id'])
+    for i in range(len(all_like)):
+        game_json.append(igdb_api.api_get_one_game(all_like.game_api_id))
+
+    games = json.loads(game_json)
+    return render(request, "users_games.hmtl", {'game_list':games})
 
 def view_all_platform(request, platform_id):
     date = datetime.utcnow() - datetime(1970, 1, 1)
@@ -124,7 +146,14 @@ def review_game(request, game_id):
     return render(request, "review_page.html", {'one_game': game})
 
 def submit_review(request, game_id):
-    return redirect(f"/games/{game_id}")
+
+    review_from_form = request.POST['review']
+    score_from_form = float(request.POST['review_score'])
+
+    newly_created_review = Reviews(review = review_from_form, score = score_from_form, game_api_id = game_id)
+    newly_created_review.save()
+
+    return redirect(f"/games/{game_id}", {'newly_created_review': newly_created_review})
 
 def search(request):
     search_from_form = request.POST['search_name']
@@ -132,3 +161,8 @@ def search(request):
     search_json = igdb_api.api_search_game_by_name(search_from_form)
     search_results = json.loads(search_json)
     return render(request, "search_results_page.html", {'search_list': search_results})
+
+def likes(request, game_id):
+    user = Users.objects.get(id = request.session['user_id'])
+    new_like = Games(game_api_id = game_id, fav_games = user)
+    return redirect(f"/your_games/{request.session['user_id']}", {'new_like': new_like})
