@@ -12,7 +12,7 @@ class Reviews(models.Model):
 class Games(models.Model):
     game_api_id = models.IntegerField()
     genre = models.CharField(max_length=45)
-    fav_games = models.ManyToManyField(Users, blank=True)
+    fav_games = models.ManyToManyField(Users, blank=True, related_name = "favorite_games")
     review = models.ForeignKey(Reviews, blank=True, null=True, on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -94,21 +94,35 @@ def one_game(request, game_id):
     
     game_reviews = Reviews.objects.all()
 
-    #user_context = {
-    #    'user_id': request.session['user_id']
-    #}
-    return render(request, "one_game.html", {'one_game': game, 'game_reviews': game_reviews})
+    user_context = {
+        'user_id': request.session['user_id']
+    }
+    return render(request, "one_game.html", {'one_game': game, 'game_reviews': game_reviews, 'user':user_context})
 
 def users_games(request, user_id):
     if 'user_id' not in request.session:
         return redirect('/')
-    game_json = []
-    all_like = Games.objects.get(fav_games = request.session['user_id'])
+    game_id_set = set()
+    count = 0
+    all_like = Games.objects.all()
+    new_string = "("
     for i in range(len(all_like)):
-        game_json.append(igdb_api.api_get_one_game(all_like.game_api_id))
+        test = Games.objects.get(id=i+1)
+        game_id_set.add(test.game_api_id)
+    print(game_id_set)
+    
+    for j in game_id_set:
+        count += 1 
+        new_string += str(j)
+        if count < len(game_id_set):
+            new_string += ", "
+        else:
+            new_string += ")"
+        
+    game_json = igdb_api.api_get_one_game(new_string)
+    game_list = json.loads(game_json)
 
-    games = json.loads(game_json)
-    return render(request, "users_games.hmtl", {'game_list':games})
+    return render(request, "users_games.html", {'game_list': game_list})
 
 def view_all_platform(request, platform_id):
     date = datetime.utcnow() - datetime(1970, 1, 1)
@@ -164,5 +178,7 @@ def search(request):
 
 def likes(request, game_id):
     user = Users.objects.get(id = request.session['user_id'])
-    new_like = Games(game_api_id = game_id, fav_games = user)
-    return redirect(f"/your_games/{request.session['user_id']}", {'new_like': new_like})
+    new_like = Games(game_api_id = game_id)
+    new_like.save()
+    new_like.fav_games.add(user)
+    return redirect(f"/games/your_games/{request.session['user_id']}", {'new_like': new_like})

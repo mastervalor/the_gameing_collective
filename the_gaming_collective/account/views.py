@@ -30,7 +30,7 @@ def account_creation(request):
         except RuntimeError:
             print('no session')
         request.session['user_id'] = new_user.id
-        return redirect('/finalize')
+        return redirect('/games/homepage')
     
 def login(request):
     user = Users.objects.filter(email=request.POST['email'])
@@ -38,9 +38,9 @@ def login(request):
         logged_user = user[0]
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['user_id'] = logged_user.id
-            return redirect('/homepage')
+            return redirect('/games/homepage')
         messages.warning(request, "This password doesn't match")
-        return redirect('/')
+        return redirect('/games/hompage')
 
 def finalize_page(request):
     if 'user_id' not in request.session:
