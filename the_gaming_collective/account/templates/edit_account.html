@@ -9,6 +9,45 @@
     <title>Document</title>
 </head>
 <body>
-    
+    {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    <form action="edit_account" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" value="{{user.last_name}}" placeholder="{{user.last_name}}" name="first_name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" value="{{user.last_name}}" placeholder="{{user.last_name}}" name="last_name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" value="{{user.email}}" name="email" placeholder="{{user.email}}" class="form-control">
+        </div>
+        <div class="form-group">
+        <label for="username">Username: </label>
+        <input type="text" value="{{user.username}}" placeholder="{{user.username}}" name="username">
+        </div>
+        <div class="form-group">
+        <label for="devices">Devices: </label>
+        <select name="devices" multiple>
+            {% for device in devices %}
+                <option value="{{device.id}}">{{device.device}}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <input type="submit" value="Update" class="btn btn-primary btn-outline-dark">
+    </form>
+    <a href="delete_account" class="btn btn-danger btn-outline-dark">Delete Account</a>
 </body>
 </html>
