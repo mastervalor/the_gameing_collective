@@ -19,4 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('account.urls')),
     path('games/', include('games.urls')),
+    path('friends/', include('friends_app.urls')),
+    path('messages/', include('messaging.urls'))
 ]

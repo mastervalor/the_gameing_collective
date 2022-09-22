@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'games',
     'general',
     'messaging',
+    'friends_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
