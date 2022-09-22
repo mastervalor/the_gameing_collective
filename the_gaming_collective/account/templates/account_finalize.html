@@ -21,7 +21,7 @@
         <input type="text" value="{{request.session.first_name}}" name="username">
         <br>
         <label for="devices">Devices: </label>
-        <select name="devices">
+        <select name="devices" multiple>
             {% for device in devices %}
                 <option value="device.dev_id">{{device.device}}</option>
             {% endfor %}
