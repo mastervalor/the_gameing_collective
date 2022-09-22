@@ -13,11 +13,13 @@
         <div class="col-4 p-4 bg-dark text-light">
             <h1 class="text-primary">Register</h1>
             {% if messages %}
-                <ul class="messages">    
-                    {% for message in messages %}    
-                        <li>{{ message }}</li>    
-                    {% endfor %}
-                </ul>
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                                <li>{{ message }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
             {% endif %}
             <form action="/user/create" method="POST">
                 {% csrf_token %}
@@ -46,6 +48,15 @@
         </div>
         <div class="col-4 p-4 bg-dark text-light">
             <h1 class="text-success">Login</h1>
+            {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}
+                            {% if message.tags == 'warning' %}
+                                <li>{{ message }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+            {% endif %}
             <form action="/user/login" method="POST">
                 {% csrf_token %}
                 <div class="form-group">

@@ -8,15 +8,22 @@
 </head>
 <body>
     <h1>Finalize Your Account</h1>
+    {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+                <li>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    {% endif %}
     <form action="/process" method="post">
         {% csrf_token %}
         <label for="username">Username:</label>
-        <input type="text" value="session_id" name="username">
+        <input type="text" value="{{request.session.first_name}}" name="username">
         <br>
         <label for="devices">Devices: </label>
         <select name="devices">
             {% for device in devices %}
-                <option value="device.id">{{device.name}}</option>
+                <option value="device.dev_id">{{device.device}}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Finalize" class="btn btn-primary btn-outline-dark">
