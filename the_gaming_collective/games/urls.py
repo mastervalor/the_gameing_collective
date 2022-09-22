@@ -5,7 +5,7 @@ urlpatterns = [
     path('homepage', views.index),
     path('games_list', views.games),
     path('<int:game_id>', views.one_game),
-    path('your_games', views.users_games),
+    path('your_games/<int:user_id>', views.users_games),
     path('view_all_platform/<int:platform_id>', views.view_all_platform),
     path('view_all_genre/<int:genre_id>', views.view_all_genre),
     path('view_all_marketplace/<int:marketplace_id>', views.view_all_marketplace),

@@ -74,9 +74,15 @@
             <h5 style="font-family: Arial, Helvetica, sans-serif; color: white;">Description</h5>
             <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{game.summary}}</p>
         </div>
-        <div class="review_container m-5">
-            <h5 style="font-family: Arial, Helvetica, sans-serif; color: white;">Reviews</h5>
-        </div>
+        {% for reviews in game_reviews %} 
+            <div class="review_container m-5">
+                <h5 style="font-family: Arial, Helvetica, sans-serif; color: white;">Reviews</h5>
+                {% if reviews.game_api_id == game.id %}
+                    <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{reviews.review}}</p>
+                    <p style="font-family: Arial, Helvetica, sans-serif; color: white;">- {{reviews.reviewer}}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
         <div class="footer_container d-flex">
             <button class="btn btn-outline-danger col-6 mx-auto" autocomplete="off" style="height: 45px; width: 100px" onclick="history.back()">Back</button>
             <a href="/games/{{game.id}}/review" class="btn btn-outline-light col-6 mx-auto" autocomplete="off" style="height: 45px; width: 200px">Write Review</a>
