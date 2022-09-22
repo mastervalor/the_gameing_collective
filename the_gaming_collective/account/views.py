@@ -30,7 +30,7 @@ def account_creation(request):
         except RuntimeError:
             print('no session')
         request.session['user_id'] = new_user.id
-        return redirect('/games/homepage')
+        return redirect('/finalize')
     
 def login(request):
     user = Users.objects.filter(email=request.POST['email'])
@@ -40,7 +40,8 @@ def login(request):
             request.session['user_id'] = logged_user.id
             return redirect('/games/homepage')
         messages.warning(request, "This password doesn't match")
-        return redirect('/games/hompage')
+        request.session['user_id'] = user.id
+        return redirect('/')
 
 def finalize_page(request):
     if 'user_id' not in request.session:
@@ -64,11 +65,45 @@ def finalize_account(request):
         except RuntimeError:
             print('no session')
     user = Users.objects.get(id=request.session['user_id'])
-    user.fav_devices = request.POST['devices']
+    print(f"this is what your looking for {request.POST}")
+    user.fav_devices.set(request.POST['devices'])
     user.save()
-    return redirect('/homepage')
+    return redirect('/games/homepage')
 
 def edit_account(request):
     if 'user_id' not in request.session:
         return redirect('/')
-    return render(request, 'edit_account.html')
+    user = Users.objects.get(id=request.session['user_id'])
+    devices = Devices.objects.all()
+    return render(request, 'edit_account.html', {'user': user, "devices": devices})
+
+def delete_account(request):
+    Users.objects.get(id=request.session['user_id']).delete()
+    return redirect('/')
+
+def update_account(request):
+    errors = Users.objects.edit_user_validator(request.POST)
+    if len(errors) > 0:
+        request.session['first_name'] = request.POST['first_name']
+        request.session['last_name'] = request.POST['last_name']
+        request.session['email'] = request.POST['email']
+        request.session['username'] = request.POST['username']
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/edit_account')
+    else:
+        user = Users.objects.get(id=request.session['user_id'])
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.email = request.POST['email']
+        user.username = request.POST['username']
+        user.fav_dev = request.POST['devices']
+        user.save()
+        try:
+            for key in request.session.keys():
+                del request.session[key]
+        except KeyError:
+            print('no sessions')
+        except RuntimeError:
+            print('no session')
+    return redirect('/games/homepage')

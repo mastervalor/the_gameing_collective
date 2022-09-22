@@ -23,7 +23,7 @@
         <label for="devices">Devices: </label>
         <select name="devices" multiple>
             {% for device in devices %}
-                <option value="device.dev_id">{{device.device}}</option>
+                <option value="{{device.id}}">{{device.device}}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Finalize" class="btn btn-primary btn-outline-dark">

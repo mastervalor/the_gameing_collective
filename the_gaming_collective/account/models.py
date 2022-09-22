@@ -19,8 +19,21 @@ class UserManager(models.Manager):
             errors['login'] = "Your passwords don't match"
         return errors
     
-    def login_user_validator(self, postData):
+    def edit_user_validator(self, postData):
         errors = {}
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['login'] = "That is not a valid email"
+        if len(postData['first_name']) < 2:
+            errors['login'] = 'First Name must be at least 2 characters'
+        if len(postData['last_name']) < 2:
+            errors['login'] = 'Last Name must be atleast 2 characters'
+        if len(postData['devices']) == 0:
+            errors['devices'] = "Please pick your favorite Devices"
+        if len(postData['username']) < 2:
+            errors['username'] = "Username must be longer then 2 letters"
+        if postData['username'] == Users.objects.filter(username=f"{postData['username']}"):
+            errors['username_match'] = "That username already excits"
+        return errors
             
     def finalize_user_validator(self, postData):
         errors = {}
