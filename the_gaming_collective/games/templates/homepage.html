@@ -12,7 +12,7 @@
         <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand ms-2" href="/games/homepage">Gaming Collective</a>
+        <a class="navbar-brand ms-2" href="/homepage">Gaming Collective</a>
         
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mb-lg-0 me-auto mb-2">
@@ -39,16 +39,28 @@
             </form>
         </div>
     </nav>
-
-    <div class="outer_container mt-5">
-        <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Upcoming Games</h2>
-        <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
-            {% for upcoming in up_list %}
-                <a href="/games/{{upcoming.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming.cover.image_id}}.jpg" alt="{{upcoming.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                </a>
-            {% endfor %} 
+    <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for upcoming_games in up_list %}
+                {% if forloop.first %}
+                    <div class="carousel-item active">
+                {% else %} 
+                    <div class="carousel-item">
+                {% endif %}
+                        <a href="/games/{{upcoming_games.id}}"class="d-flex justify-content-md-center">
+                            <img class="game_images rounded img-fluid max-width: 100%;" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_games.cover.image_id}}.jpg" alt="{{upcoming_games.name}}" style="opacity: 0.8; height: 30%; width: 30%;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                        </a>
+                    </div>
+            {% endfor %}
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
     <div class="outer_container mt-5">
         <div class="header_contianer d-flex justify-content-between">
