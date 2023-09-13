@@ -39,16 +39,16 @@
             </form>
         </div>
     </nav>
-    <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel">
-        <div class="carousel-inner">
+    <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel" >
+        <div class="carousel-inner" >
             {% for upcoming_games in up_list %}
                 {% if forloop.first %}
                     <div class="carousel-item active">
                 {% else %} 
-                    <div class="carousel-item">
+                    <div class="carousel-item" >
                 {% endif %}
                         <a href="/games/{{upcoming_games.id}}"class="d-flex justify-content-md-center">
-                            <img class="game_images rounded img-fluid max-width: 100%;" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_games.cover.image_id}}.jpg" alt="{{upcoming_games.name}}" style="opacity: 0.8; height: 30%; width: 30%;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                            <img class="game_images rounded img-fluid max-width: 50%;" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_games.cover.image_id}}.jpg" alt="{{upcoming_games.name}}" style="opacity: 0.8; max-height: 700px; " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                         </a>
                     </div>
             {% endfor %}
@@ -70,7 +70,7 @@
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in gp_list %}
                 <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
         </div>
@@ -83,7 +83,7 @@
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in xbm_list %}
                 <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
         </div>
@@ -96,7 +96,7 @@
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in pss_list %}
                 <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
         </div>
@@ -109,7 +109,7 @@
         <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
             {% for games in epic_list %}
                 <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                 </a>
             {% endfor %} 
         </div>
