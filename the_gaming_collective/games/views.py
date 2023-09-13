@@ -94,10 +94,10 @@ def one_game(request, game_id):
     
     game_reviews = Reviews.objects.all()
 
-    user_context = {
-        'user_id': request.session['user_id']
-    }
-    return render(request, "one_game.html", {'one_game': game, 'game_reviews': game_reviews, 'user':user_context})
+    # user_context = {
+    #     'user_id': request.session['user_id']
+    # }
+    return render(request, "one_game.html", {'one_game': game, 'game_reviews': game_reviews}) #, 'user':user_context
 
 def users_games(request, user_id):
     if 'user_id' not in request.session:

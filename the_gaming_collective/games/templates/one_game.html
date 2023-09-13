@@ -56,16 +56,18 @@
             </div>
             <a href="/games/like/{{game.id}}" class="btn btn-outline-primary col-6 mx-auto" autocomplete="off" style="height: 45px; width: 100px">Like</a>
         </div>
-        <div class="middle_container d-flex m-5">
-            <p style="font-family: Arial, Helvetica, sans-serif; color: white;">Platforms:&nbsp;</p>
+        <div class="middle_container d-flex m-5" style="height: 45px;">
+            <p style="font-family: Arial, Helvetica, sans-serif; color: white; font-weight: bold;">Platforms:&nbsp;</p>
             {% for plat in game.platforms %} 
                 <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{plat.name}} &nbsp;</p>
             {% endfor %}
-            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white;">Genres:&nbsp;</p>
+            <br>
+            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white; font-weight: bold;">Genres:&nbsp;</p>
             {% for genre in game.genres %} 
                 <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{genre.name}} &nbsp;</p>
             {% endfor %}
-            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white;">Game Modes:&nbsp;</p>
+            <br>
+            <p class="ms-5" style="font-family: Arial, Helvetica, sans-serif; color: white; font-weight: bold;">Game Modes:&nbsp;</p>
             {% for mode in game.game_modes %} 
                 <p style="font-family: Arial, Helvetica, sans-serif; color: white;">{{mode.name}} &nbsp;</p>
             {% endfor %}
