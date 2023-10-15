@@ -20,7 +20,7 @@
     {% endif %}
 
 
-    <form action="edit_account" method="post">
+    <form action="/accountedit_account" method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="first_name">First Name:</label>
@@ -48,6 +48,6 @@
         </div>
         <input type="submit" value="Update" class="btn btn-primary btn-outline-dark">
     </form>
-    <a href="delete_account" class="btn btn-danger btn-outline-dark">Delete Account</a>
+    <a href="/accountdelete_account" class="btn btn-danger btn-outline-dark">Delete Account</a>
 </body>
 </html>

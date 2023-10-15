@@ -32,7 +32,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <form action="/user/login" method="POST">
+            <form action="/account/user/login" method="POST">
                 {% csrf_token %}
                 <!-- Login form fields -->
                 <div class="form-group">
@@ -57,7 +57,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <form action="/user/create" method="POST">
+            <form action="/account/user/create" method="POST">
                 {% csrf_token %}
                 <!-- Registration form fields -->
                 <div class="form-group">

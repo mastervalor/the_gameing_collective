@@ -38,6 +38,8 @@ def index(request):
     return render(request, "homepage.html", {'gp_list': gp_games, 'up_list': up_games, 'xbm_list':xbm_games, 'pss_list': pss_games, 'epic_list':epic_games})
 
 def games(request):
+    if 'user_id' not in request.session:
+        return redirect('/account/login_create')
 
     date = datetime.utcnow() - datetime(1970, 1, 1)
     seconds = (date.total_seconds())
@@ -101,7 +103,7 @@ def one_game(request, game_id):
 
 def users_games(request, user_id):
     if 'user_id' not in request.session:
-        return redirect('/')
+        return redirect('/account/login_create')
     game_id_set = set()
     count = 0
     all_like = Games.objects.all()

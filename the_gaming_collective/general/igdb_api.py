@@ -1,6 +1,6 @@
 from igdb.wrapper import IGDBWrapper
 
-wrapper = IGDBWrapper("1ucj7p9lz76qmng4s8xpcwoh0h69j5", "i0k1x9s5leoh2dy0lzymm9kt4zjkdc")
+wrapper = IGDBWrapper("1ucj7p9lz76qmng4s8xpcwoh0h69j5", "2a3tw9lp0do3bvky8wnbx44hst8omz")
 
 class igdb_api:
     @classmethod

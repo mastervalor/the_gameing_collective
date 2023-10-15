@@ -15,7 +15,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <form action="/process" method="post">
+    <form action="/account/process" method="post">
         {% csrf_token %}
         <label for="username">Username:</label>
         <input type="text" value="{{request.session.first_name}}" name="username">
