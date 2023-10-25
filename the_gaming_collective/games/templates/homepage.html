@@ -2,120 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Homepage</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    {% load static %} 
-    <link rel="stylesheet" href="{% static 'css/games_stylesheet.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home_page_style.css' %}">
+    <script>
+            var upcomingGames = {{ upcoming_games|safe }};
+    </script>
 </head>
-<body style="background-color: #303030">
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
-        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand ms-2" href="/">Gaming Collective</a>
-        
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/friends">Friends</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/messages">Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/account/account">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/help">Help</a>
-                </li>
-            </ul>
-            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
-                {% csrf_token %}
-                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-    <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel" >
-        <div class="carousel-inner" >
-            {% for upcoming_games in up_list %}
-                {% if forloop.first %}
-                    <div class="carousel-item active">
-                {% else %} 
-                    <div class="carousel-item" >
-                {% endif %}
-                        <a href="/games/{{upcoming_games.id}}"class="d-flex justify-content-md-center">
-                            <img class="game_images rounded img-fluid max-width: 50%;" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_games.cover.image_id}}.jpg" alt="{{upcoming_games.name}}" style="opacity: 0.8; max-height: 700px; " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                        </a>
-                    </div>
-            {% endfor %}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    <div class="outer_container mt-5">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Game Pass</h2>
-            <a href="/games/view_all_marketplace/54" class="btn btn-outline-primary col-6 ms-3 me-2" autocomplete="off" style="height: 45px; width: 200px">View All</a>
-        </div>
-        <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
-            {% for games in gp_list %}
-                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                </a>
-            {% endfor %} 
-        </div>
-    </div>
-    <div class="outer_container mt-5">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Xbox Marketplace</h2>
-            <a href="/games/view_all_marketplace/31" class="btn btn-outline-primary col-6 ms-3 me-2" autocomplete="off" style="height: 45px; width: 200px">View All</a>
-        </div>
-        <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
-            {% for games in xbm_list %}
-                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                </a>
-            {% endfor %} 
-        </div>
-    </div>
-    <div class="outer_container mt-5">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Playstation Store</h2>
-            <a href="/games/view_all_marketplace/36" class="btn btn-outline-primary col-6 ms-3 me-2" autocomplete="off" style="height: 45px; width: 200px">View All</a>
-        </div>
-        <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
-            {% for games in pss_list %}
-                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                </a>
-            {% endfor %} 
-        </div>
-    </div>
-    <div class="outer_container mt-5">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-1" style="color: white; font-family: Arial, Helvetica, sans-serif;">Epic Store</h2>
-            <a href="/games/view_all_marketplace/26" class="btn btn-outline-primary col-6 ms-3 me-2" autocomplete="off" style="height: 45px; width: 200px">View All</a>
-        </div>
-        <div class="inner_container d-flex flex-nowrap gx-5" style="overflow-x: auto; white-space: nowrap; height: 275px;">
-            {% for games in epic_list %}
-                <a href="/games/{{games.id}}" class="d-flex col-md-3 m-2" style="width: 16.25%;">
-                    <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{game_pass.name}}" width="50%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                </a>
-            {% endfor %} 
-        </div>
-    </div>
+    <body style="background-color: #303030">
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
+            <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand ms-2" href="/">Gaming Collective</a>
 
-    <!--additional scripts-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mb-lg-0 me-auto mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link ms-2" href="/games/games_list">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-2" href="/friends">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-2" href="/messages">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-2" href="/account/account">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-2" href="/help">Help</a>
+                    </li>
+                </ul>
+                <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
+                    {% csrf_token %}
+                    <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <div id="carousel-indicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for upcoming_game in upcoming_games %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="image-container">
+                        <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_game.cover.image_id}}.jpg" class="d-block mx-auto" alt=" {{upcoming_game.name}} Cover">
+                        <div class="carousel-caption">
+                            <div class="carousel-caption-container">
+                                <h5>{{upcoming_game.name}}&nbsp;</h5>
+                                <p class="caption-text">Summary: {{upcoming_game.summary}}</p>
+                                <p class="formatted-release-date release-date-left"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Carousel Buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- JS Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+        {% load static %}
+        <script src="{% static 'home_page_scripts.js' %}"></script>
+    </body>
 </html>

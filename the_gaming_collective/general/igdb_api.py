@@ -1,76 +1,51 @@
 from igdb.wrapper import IGDBWrapper
+from django.views.decorators.cache import cache_page
+from django.http import JsonResponse
+from django.views.generic.base import View
+import json
 
-wrapper = IGDBWrapper("1ucj7p9lz76qmng4s8xpcwoh0h69j5", "2a3tw9lp0do3bvky8wnbx44hst8omz")
+IGDB_CLIENT_ID = "1ucj7p9lz76qmng4s8xpcwoh0h69j5"
+IGDB_API_KEY = "2a3tw9lp0do3bvky8wnbx44hst8omz"
 
-class igdb_api:
+wrapper = IGDBWrapper(IGDB_CLIENT_ID, IGDB_API_KEY)
+
+class igdb_api(View):
     @classmethod
-    def api_get_upcoming_games(cls, data):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields id, name, cover.image_id; limit 25; where release_dates.date > {data} & platforms = {167, 169} & cover.image_id != null; sort release_dates.date asc;'
-        )
-        return byte_array
+    def get_aaa_upcoming_games(cls):
 
-    @classmethod
-    def api_get_game_by_marketplace(cls, data):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, release_dates.human, release_dates.region, cover.image_id; limit 25; sort release_dates.date asc; where external_games.category = {data};'
-        )
-        return byte_array
+        all_games = []
+        top_aaa = [
+            "Nintendo", "Square Enix", "Ubisoft",
+            "Activision", "Activision Blizzard",
+            "Bethesda", "Capcom", "Sony Interactive Entertainment",
+            "BioWare", "Epic Games", "FromSoftware", "Bungie",
+            "2K Games", "Insomniac Games", "Respawn Entertainment",
+            "Guerrilla Games", "Respawn Entertainment", "DICE", "2K games",
+            "CD Projekt RED", "505 Games", "Konami", "Naughty Dog",
+            "Riot Games", "Bandai Namco Games"
+        ]
 
-    @classmethod
-    def api_get_game_by_marketplace_extended(cls, data, time):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, release_dates.human, release_dates.region, cover.image_id; limit 500; sort release_dates.date asc; where external_games.category = {data};'
-        )
-        return byte_array
+        offset = 0
+        limit = 500
 
-    @classmethod
-    def api_get_games_by_genre(cls, data, time):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, cover.image_id; limit 25; where genres = {data} & platforms = {167, 169} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
-        )
-        return byte_array
+        where_plat = 'platforms.name = "Xbox Series X|S" | platforms.name = "PlayStation 5" | platforms.name = "Nintendo Switch" | platforms.name = "PC"'
+        where_dev = " | ".join([f'involved_companies.company.name = "{name}"' for name in top_aaa])
+        if_dev = 'involved_companies.developer = true'
+        
 
-    @classmethod
-    def api_get_games_by_genre_extended(cls, data, time):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, cover.image_id; limit 500; where genres = {data} & platforms = {167, 169} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
-        )
-        return byte_array
+        while True:
+            response = wrapper.api_request(
+                'games',
+                f'fields name, cover.image_id, summary, first_release_date, rating, age_ratings, platforms, platforms.name, expansions, game_engines, game_modes, genres, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, parent_game, version_title; offset {offset}; limit {limit}; where ({where_plat}) & ({where_dev}) & ({if_dev});'
+            )
 
-    @classmethod
-    def api_get_games_by_platform(cls, data, time):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, cover.image_id; limit 25; where platforms = {data} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
-        )
-        return byte_array
+            games_batch = json.loads(response)
 
-    @classmethod
-    def api_get_games_by_platform_extended(cls, data, time):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, cover.image_id; limit 500; where platforms = {data} & release_dates.date < {time} & cover.image_id != null; sort release_dates.date desc;'
-        )
-        return byte_array
+            if not games_batch:
+                break
 
-    @classmethod
-    def api_get_one_game(cls, data):
-        byte_array = wrapper.api_request(
-            'games',
-            f'fields name, cover.image_id, genres.name, involved_companies.company.name, platforms.name, summary, game_modes.name; where id = {data};'
-        )
-        return byte_array
+            all_games.extend(games_batch)
 
-    @classmethod
-    def api_search_game_by_name(cls, data):
-        byte_array = wrapper.api_request(
-            'games',
-            f'search "{data}"; fields name, release_dates.human, release_dates.region, cover.image_id; limit 25;'
-        )
-        return byte_array
+            offset += limit
+
+        return all_games
