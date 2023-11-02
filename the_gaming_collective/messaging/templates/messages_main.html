@@ -23,7 +23,7 @@
                     <a class="nav-link ms-2" href="/friends">Friends</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-2" href="/messages">Messages</a>
+                    <a class="nav-link ms-2" href="/messages/chats">Messages</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link ms-2" href="/account/account">Account</a>
@@ -39,10 +39,16 @@
             </form>
         </div>
     </nav>
-    <div class="outer_container  mt-5 w-auto">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-2" style="color: white; font-family: Arial, Helvetica, sans-serif;">UNDER CONSTRUCTION</h2>
+    <div class="container">
+        <h2>Messages</h2>
+        <div class="list-group">
+          {% for chat in chats %}
+          <a href="{% url 'chat_detail' chat.id %}" class="list-group-item list-group-item-action">
+            <h5>{{ chat.name }}</h5>
+            <p>{{ chat.last_message.content }}</p>
+          </a>
+          {% endfor %}
         </div>
-    </div>
+      </div>
 </body>
 </html>
