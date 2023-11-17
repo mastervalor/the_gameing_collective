@@ -2,12 +2,17 @@ import bcrypt
 from django.shortcuts import render, redirect
 from general.igdb_api import igdb_api
 from django.contrib import messages
+from django.contrib.auth import logout
 from .models import Users, Devices
 import json
 
 
 def index(request):
     return render(request, "login_create.html")
+
+def logout(request):
+    logout(request)
+    return redirect('/')
 
 def account_creation(request):
     errors = Users.objects.default_user_validator(request.POST)

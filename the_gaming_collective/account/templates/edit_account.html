@@ -20,6 +20,40 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
+        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand ms-2" href="/">Gaming Collective</a>
+        
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/friends">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/messages/chats">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/account/account">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="/help">Help</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="btn btn-danger btn-outline-dark">Log out</a>
+                </li>
+            </ul>
+            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
+                {% csrf_token %}
+                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
     <div id="formContainer" class="d-flex justify-content-evenly container align-items-center vh-100">
         <div id="loginForm" class="col-4 p-4 text-light rounded">
             {% if messages %}
@@ -31,7 +65,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <form action="/accountedit_account" method="post">
+            <form action="/account/edit_account" method="post">
                 {% csrf_token %}
                 <div class="form-group" style="margin-bottom: 20px">
                     <label for="first_name">First Name:</label>
