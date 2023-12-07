@@ -45,12 +45,17 @@
     <div class="container">
         <h2>Messages</h2>
         <div class="list-group">
-          {% for chat in chats %}
-          <a href="{% url 'chat_detail' chat.id %}" class="list-group-item list-group-item-action">
-            <h5>{{ chat.name }}</h5>
-            <p>{{ chat.last_message.content }}</p>
-          </a>
-          {% endfor %}
+            {% if not chats %}
+                <p>You have no messages yet!</p>
+
+            {% else %}
+                {% for chat in chats %}
+                <a href="{% url 'chat_detail' chat.id %}" class="list-group-item list-group-item-action">
+                <h5>{{ chat.name }}</h5>
+                <p>{{ chat.last_message.content }}</p>
+                </a>
+                {% endfor %}
+            {% endif %}
         </div>
       </div>
 </body>
