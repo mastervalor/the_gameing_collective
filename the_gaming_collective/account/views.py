@@ -77,7 +77,7 @@ def finalize_account(request):
 
 def edit_account(request):
     if 'user_id' not in request.session:
-        return redirect('/account')
+        return redirect('/account/login_create')
     user = Users.objects.get(id=request.session['user_id'])
     devices = Devices.objects.all()
     return render(request, 'edit_account.html', {'user': user, "devices": devices})
