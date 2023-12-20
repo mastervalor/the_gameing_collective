@@ -31,15 +31,15 @@
                 <li class="nav-item">
                     <a class="nav-link ms-2" href="/help">Help</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/account/logout" class="btn btn-danger btn-outline-dark">Log out</a>
-                </li>
             </ul>
             <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
                 {% csrf_token %}
                 <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
             </form>
+            {% if 'user_id' in request.session %}
+                <a href="/account/logout" class="btn btn-danger btn-outline-dark" style = "margin-right: 10px">Log out</a>
+            {% endif %}
         </div>
     </nav>
     {% for game in one_game %}
