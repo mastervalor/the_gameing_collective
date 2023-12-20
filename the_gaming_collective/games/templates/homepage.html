@@ -9,70 +9,143 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'home_page_style.css' %}">
     <script>
-            var upcomingGames = {{ upcoming_games|safe }};
+        var upcomingGames = {{ upcoming_games| safe }};
+        var recentGames = {{ recently_released_games| safe }};
     </script>
 </head>
-    <body style="background-color: #303030">
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
-            <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand ms-2" href="/">Gaming Collective</a>
-
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mb-lg-0 me-auto mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link ms-2" href="/games/games_list">Games</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-2" href="/friends">Friends</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-2" href="/messages">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-2" href="/account/account">Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-2" href="/help">Help</a>
-                    </li>
-                </ul>
-                <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
-                    {% csrf_token %}
-                    <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-
-        <div id="carousel-indicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for upcoming_game in upcoming_games %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="image-container">
-                        <img src="https://images.igdb.com/igdb/image/upload/t_1080p/{{upcoming_game.cover.image_id}}.jpg" class="d-block mx-auto" alt=" {{upcoming_game.name}} Cover">
-                        <div class="carousel-caption">
-                            <div class="carousel-caption-container">
-                                <h5>{{upcoming_game.name}}&nbsp;</h5>
-                                <p class="caption-text">Summary: {{upcoming_game.summary}}</p>
-                                <p class="formatted-release-date release-date-left"></p>
-
-                            </div>
+    <body>
+        <div class="inner_body container-fluid">
+            <div class="row">
+                <nav class="navbar col-md-3  col-lg-2 sidebar collapsed">
+                    <div class="navbar-header">
+                        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                            <a class="site-name navbar-brand ms-2" href="/">TCG</a>
+                            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ms-2" href="/friends">Friends</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ms-2" href="/messages">Messages</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ms-2" href="/account/account">Account</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ms-2" href="/help">Help</a>
+                                </li>
+                            </ul>
+                            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
+                                {% csrf_token %}
+                                <input class="search-bar form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                            </form>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-            </div>
+                </nav>
 
-            <!-- Carousel Buttons -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                    <div id="carousel-indicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for upcoming_game in upcoming_games %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:upcoming_game.cover.image_id|add:".jpg" %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="image-container">
+                                    <a href="/games/{{upcoming_game.id}}">
+                                        <img src="{{ image_url }}" class="d-block mx-auto" alt="{{upcoming_game.name}} Cover">
+                                    </a>
+                                    <div class="carousel-caption">
+                                        <div class="carousel-caption-container">
+                                            <h5>{{upcoming_game.name}}&nbsp;</h5>
+                                            <p class="caption-text">Summary: {{upcoming_game.summary}}</p>
+                                            <p class="formatted-release-date release-date-left"></p>
+                                            <p class="platforms platforms_left"></p>
+                                        </div>
+                                    </div>
+                                    <div class="hover-bg" style="background-image: url('{{ image_url }}')"></div>
+                                </div>
+                            </div>
+                            {% endwith %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- Carousel Buttons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-indicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="line_break"></div>
+
+                    <div class="second_row">
+                        <h3 class="recent_releases">Recent Releases</h3>
+                    </div>
+
+                    <div class="third_row">
+                        <ul class="filter_list">
+                            <li class="filter_list_item">
+                                <div class="genre_dropdown">
+                                    <select id="genre-select" class="genre_dropdown_menu">
+                                        <option value="" disabled selected>Genre</option>
+                                        <option value="action">Action</option>
+                                        <option value="action_rpg">Action RPG</option>
+                                        <option value="adventure">Adventure</option>
+                                        <option value="arcade">Arcade</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="filter_list_item">
+                                <div class="platform_dropdown">
+                                    <select class="platform_dropdown_menu">
+                                        <option value="" disabled selected>Platform</option>
+                                        <option value="pc">PC</option>
+                                        <option value="playstation">Playstation</option>7
+                                        <option value="nintendo">Nintendo</option>
+                                        <option value="xbox">Xbox</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 
+                    <div class="game_rows d-flex flex-wrap flex-rows">
+                        {% for recent_games in recently_released_games %}
+                        {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                        <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                            <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                        </a>
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
+                    -->
+
+                    <div class="action_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Action" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
 
         <!-- JQuery -->

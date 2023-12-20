@@ -125,6 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+ADMIN_URL = 'admin/'
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -136,4 +138,4 @@ CACHES = {
 }
 
 # Set a cache timeout (in seconds) appropriate for your application
-CACHE_TIMEOUT = 7200  # 2 hours, adjust as needed
+CACHE_TIMEOUT = 1800  # 2 hours, adjust as needed

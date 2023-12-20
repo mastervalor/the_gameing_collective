@@ -32,16 +32,50 @@ captionElement.forEach(function (captionElement) {
 /* --------------------------------Homepage Carousel Caption--------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
     const releaseDateElements = document.querySelectorAll('.formatted-release-date');
+    const platformElements = document.querySelectorAll('.platforms');
 
-    for (let i = 0; i < upcomingGames.length; i++) {
+    for (let i = 0; i < releaseDateElements.length; i++) {
+        const releaseDateElement = releaseDateElements[i];
         const game = upcomingGames[i];
-        const unixTimestamp = game.first_release_date;
-        const releaseDate = new Date(unixTimestamp * 1000);
 
-        const formattedDate = `${String(releaseDate.getDate()).padStart(2, '0')}/${String(releaseDate.getMonth() + 1).padStart(2, '0')}/${releaseDate.getFullYear()}`;
+        if (game) {
+            const unixTimestamp = game.first_release_date;
+            const releaseDate = new Date(unixTimestamp * 1000);
+            const formattedDate = `${String(releaseDate.getDate()).padStart(2, '0')}/${String(releaseDate.getMonth() + 1).padStart(2, '0')}/${releaseDate.getFullYear()}`;
 
-        // Use the index 'i' to select the correct release date element
-        releaseDateElements[i].textContent = "Release Date: " + formattedDate;
+            // Use the index 'i' to select the correct release date element
+            releaseDateElement.textContent = "Release Date: " + formattedDate;
+        }
+
+        const platforms = game.platforms.map(platform => platform.name).join(', ');
+
+        platformElements[i].textContent = "Platforms: " + platforms;
     }
 });
 /* --------------------------------Homepage Carousel Caption--------------------------------- */
+
+/* -------------------------------------NAV bar---------------------------------------------- */
+$(document).ready(function () {
+    $(".navbar-toggler").click(function () {
+        $(".sidebar").toggleClass("collapsed");
+    });
+});
+/* ------------------------------------NAV bar----------------------------------------------- */
+
+/* Filter Buttons */
+document.addEventListener("DOMContentLoaded", function () {
+    const genreDropdown = document.getElementById("genre-select");
+    const actionContent = document.querySelector('.action_selection');
+
+    genreDropdown.addEventListener("change", function () {
+        var selectedGenre = this.value;
+
+        if (selectedGenre === 'action') {
+            actionContent.classList.remove('hidden-content');
+        }
+        else {
+            actionContent.classList.add('hidden-content');
+        }
+    });
+});
+/* Filter Buttons */
