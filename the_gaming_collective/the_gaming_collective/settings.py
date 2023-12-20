@@ -123,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# default url for autenticaion when use is not logged in
+LOGIN_URL = '/account/login_create/'

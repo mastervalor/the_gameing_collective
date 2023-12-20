@@ -10,7 +10,7 @@ import json
 def index(request):
     return render(request, "login_create.html")
 
-def logout(request):
+def logout_view(request):
     logout(request)
     return redirect('/')
 
