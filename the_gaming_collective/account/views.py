@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from general.igdb_api import igdb_api
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from .models import Users, Devices
 import json
 
@@ -15,38 +17,48 @@ def logout_view(request):
     return redirect('/')
 
 def account_creation(request):
-    errors = Users.objects.default_user_validator(request.POST)
-    if len(errors) > 0:
-        request.session['first_name'] = request.POST['first_name']
-        request.session['last_name'] = request.POST['last_name']
-        request.session['email'] = request.POST['email']
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/account/user/create')
+    if request.method == 'POST':
+        errors = Users.objects.default_user_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return render(request, "account_creation.html", {
+                'first_name': request.POST['first_name'],
+                'last_name': request.POST['last_name'],
+                'email': request.POST['email']
+            })
+        else:
+            try:
+                user = User.objects.create_user(username=request.POST['email'], 
+                                                email=request.POST['email'], 
+                                                password=request.POST['password'],
+                                                first_name=request.POST['first_name'],
+                                                last_name=request.POST['last_name'])
+                login(request, user)  # Log in the newly created user
+                return redirect('/account/finalize')
+            except Exception as e:
+                messages.error(request, str(e))
+                return render(request, "account_creation.html", {
+                    'first_name': request.POST['first_name'],
+                    'last_name': request.POST['last_name'],
+                    'email': request.POST['email']
+                })
     else:
-        password = request.POST['password']
-        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
-        new_user = Users.objects.create(first_name = request.POST['first_name'], last_name = request.POST['last_name'], email = request.POST['email'], password = pw_hash)
-        try:
-            for key in request.session.keys():
-                del request.session[key]
-        except KeyError:
-            print('no sessions')
-        except RuntimeError:
-            print('no session')
-        request.session['user_id'] = new_user.id
-        return redirect('/account/finalize')
+        return render(request, "account_creation.html")
     
-def login(request):
-    user = Users.objects.filter(email=request.POST['email'])
-    if user:
-        logged_user = user[0]
-        if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
-            request.session['user_id'] = logged_user.id
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
             return redirect('/')
-        messages.warning(request, "This password doesn't match")
-        request.session['user_id'] = user.id
-        return redirect('/account')
+        else:
+            messages.warning(request, "Invalid email or password")
+    return render(request, "login_create.html")
 
 def finalize_page(request):
     if 'user_id' not in request.session:
