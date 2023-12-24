@@ -16,7 +16,7 @@ def chat_list(request):
         messages.warning(request, "You have no messages yet!")
         chats = None
     context = {'chats': chats}
-    return render(request, 'chat/list.html', context)
+    return render(request, 'messages_main.html', context)
 
 def chat_detail(request, chat_id):
     if 'user_id' not in request.session:
