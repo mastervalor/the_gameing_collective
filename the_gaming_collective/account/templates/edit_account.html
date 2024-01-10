@@ -1,59 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Document</title>
-    <style>
-        #loginForm {
-            background: rgba(40, 40, 40, 0.5);
-            height: 500px;
-        }
+{% extends "layout.html" %}
 
-        #registrationForm {
-            background: rgba(40, 40, 40, 0.5);
-            height: 350px;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
-        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand ms-2" href="/">Gaming Collective</a>
-        
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/friends">Friends</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/messages/chats">Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/account/account">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/help">Help</a>
-                </li>
-            </ul>
-            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
-                {% csrf_token %}
-                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
-            </form>
-            {% if 'user_id' in request.session %}
-                <a href="/account/logout" class="btn btn-danger btn-outline-dark" style = "margin-right: 10px">Log out</a>
-            {% endif %}
-        </div>
-    </nav>
+{% block title %}
+    Friends_Main
+{% endblock %}
+
+{% block main %}
     <div id="formContainer" class="d-flex justify-content-evenly container align-items-center vh-100">
         <div id="loginForm" class="col-4 p-4 text-light rounded">
             {% if messages %}
@@ -96,6 +47,4 @@
             </form>
         </div>
     </div>
-
-</body>
-</html>
+{% endblock %}
