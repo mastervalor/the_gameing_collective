@@ -96,10 +96,17 @@
                                 <div class="genre_dropdown">
                                     <select id="genre-select" class="genre_dropdown_menu">
                                         <option value="" disabled selected>Genre</option>
-                                        <option value="action">Action</option>
-                                        <option value="action_rpg">Action RPG</option>
+                                        <option value="fighting">Fighting</option>
+                                        <option value="shooter">Shooter</option>
+                                        <option value="music">Music</option>
+                                        <option value="platform">Platformer</option>
+                                        <option value="puzzle">Puzzle</option>
+                                        <option value="racing">Racing</option>
+                                        <option value="rts">Real Time Strategy</option> <!-- id: 11 name: Real Time Strategy (RTS) -->
+                                        <option value="rpg">Role-playing</option> <!-- id: 12 name: Role-playing (RPG)-->
+                                        <option value="simulator">Simulation</option>
+                                        <option value="sport">Sports</option>
                                         <option value="adventure">Adventure</option>
-                                        <option value="arcade">Arcade</option>
                                     </select>
                                 </div>
                             </li>
@@ -117,23 +124,12 @@
                         </ul>
                     </div>
 
-                    <!-- 
-                    <div class="game_rows d-flex flex-wrap flex-rows">
-                        {% for recent_games in recently_released_games %}
-                        {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
-                        <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
-                            <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
-                        </a>
-                        {% endwith %}
-                        {% endfor %}
-                    </div>
-                    -->
-
-                    <div class="action_selection hidden-content">
+                    <!-- Genre: Fighting -->
+                    <div class="fighting_selection hidden-content">
                         <div class="game_rows d-flex flex-wrap -flex-rows">
                             {% for recent_games in recently_released_games %}
                             {% for genre in recent_games.genres %}
-                            {% if "Action" in genre.name %}
+                            {% if "Fighting" in genre.name %}
                             {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
                             <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
                                 <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
@@ -144,6 +140,169 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <!-- Genre: Shooter -->
+                    <div class="shooter_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Shooter" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Music -->
+                    <div class="music_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Music" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Platform -->
+                    <div class="platform_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Platform" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Puzzle -->
+                    <div class="puzzle_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Puzzle" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Racing -->
+                    <div class="racing_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Racing" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Real Time Strategy (RTS) -->
+                    <div class="rts_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Real Time Strategy (RTS)" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Role-playing (RPG) -->
+                    <div class="roleplaying_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Role-playing (RPG)" in genre.name %} <!-- id: 12 name: Role-playing (RPG) -->
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Simulator -->
+                    <div class="sim_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Simulator" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Sport -->
+                    <div class="sport_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Sport" in genre.name %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Genre: Adventure -->
+                    <div class="adventure_selection hidden-content">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% for genre in recent_games.genres %}
+                            {% if "Adventure" in genre.name %} <!-- id: 31 name: Adventure -->
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
                 </main>
             </div>
         </div>

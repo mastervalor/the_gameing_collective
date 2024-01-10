@@ -65,16 +65,189 @@ $(document).ready(function () {
 /* Filter Buttons */
 document.addEventListener("DOMContentLoaded", function () {
     const genreDropdown = document.getElementById("genre-select");
-    const actionContent = document.querySelector('.action_selection');
+    const actionContent = document.querySelector('.adventure_selection');
+    const rpgContent = document.querySelector('.roleplaying_selection');
+    const fightingContent = document.querySelector('.fighting_selection');
+    const shooterContent = document.querySelector('.shooter_selection');
+    const musicContent = document.querySelector('.music_selection');
+    const platformContent = document.querySelector('.platform_selection');
+    const puzzleContent = document.querySelector('.puzzle_selection');
+    const racingContent = document.querySelector('.racing_selection');
+    const rtsContent = document.querySelector('.rts_selection');
+    const simContent = document.querySelector('.sim_selection');
+    const sportContent = document.querySelector('.sport_selection');
 
     genreDropdown.addEventListener("change", function () {
         var selectedGenre = this.value;
 
-        if (selectedGenre === 'action') {
+        if (selectedGenre === 'adventure') {
             actionContent.classList.remove('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'fighting') {
+            fightingContent.classList.remove('hidden-content');
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'rpg') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.remove('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'fighting') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.remove('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'shooter') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.remove('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'music') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.remove('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'platform') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.remove('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'puzzle') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.remove('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'racing') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.remove('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'rts') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.remove('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'simulator') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.remove('hidden-content');
+            sportContent.classList.add('hidden-content');
+        }
+        else if (selectedGenre === 'sport') {
+            actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.remove('hidden-content');
         }
         else {
             actionContent.classList.add('hidden-content');
+            rpgContent.classList.add('hidden-content');
+            fightingContent.classList.add('hidden-content');
+            shooterContent.classList.add('hidden-content');
+            musicContent.classList.add('hidden-content');
+            platformContent.classList.add('hidden-content');
+            puzzleContent.classList.add('hidden-content');
+            racingContent.classList.add('hidden-content');
+            rtsContent.classList.add('hidden-content');
+            simContent.classList.add('hidden-content');
+            sportContent.classList.add('hidden-content');
         }
     });
 });
