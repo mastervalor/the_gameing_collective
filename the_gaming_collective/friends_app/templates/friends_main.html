@@ -47,7 +47,8 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <h2>Your Friends</h2>
+                <h2 class="text-light">Friends List</h2>
+                <label for="friend_username" class="form-label text-light">Your current friends</label>
                 <ul class="list-group">
                     {% for friend in user.friends.all %}
                         <li class="list-group-item">{{ friend.username }} - {{ friend.first_name }} {{ friend.last_name }}</li>
@@ -57,11 +58,11 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <h2>Add New Friends</h2>
-                <form action="{% url 'add_friend' %}" method="POST">
+                <h2 class="text-light">Add New Friends</h2>
+                <form action="/friends/add_friend" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="friend_username" class="form-label">Username or Email:</label>
+                        <label for="friend_username" class="form-label text-light">Username or Email:</label>
                         <input type="text" id="friend_username" name="friend_username" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Friend</button>
@@ -70,12 +71,6 @@
         </div>
     </div>
     
-    <!-- Other Content -->
-    <div class="outer_container mt-5 w-auto">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-2" style="color: white; font-family: Arial, Helvetica, sans-serif;">UNDER CONSTRUCTION</h2>
-        </div>
-    </div>
 
     <!-- Bootstrap Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-eVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></script>

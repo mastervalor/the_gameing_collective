@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Users  # Import your Users model here
+from account.models import Users
 
 def display_friends(request):
     if 'user_id' not in request.session:
