@@ -58,7 +58,7 @@ class Users(models.Model):
     last_name = models.CharField(max_length=45)
     username = models.CharField(max_length=45, blank=True)
     fav_devices = models.ManyToManyField(Devices, blank=True)
-    friend_id = models.ManyToManyField("self")
+    friends = models.ManyToManyField("self", blank=True, symmetrical=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
