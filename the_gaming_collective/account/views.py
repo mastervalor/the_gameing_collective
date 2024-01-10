@@ -38,15 +38,20 @@ def account_creation(request):
         return redirect('/account/finalize')
     
 def login_view(request):
-    user = Users.objects.filter(email=request.POST['email'])
-    if user:
-        logged_user = user[0]
+    users = Users.objects.filter(email=request.POST['email'])
+    
+    if users.exists():  # Check if any users are found
+        logged_user = users.first()
+        
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session['user_id'] = logged_user.id
             return redirect('/')
+        
         messages.warning(request, "This password doesn't match")
-        request.session['user_id'] = user.id
-        return redirect('/account')
+    else:
+        messages.warning(request, "No user found with this email")
+    
+    return redirect('/account/login_create/')
 
 def finalize_page(request):
     if 'user_id' not in request.session:

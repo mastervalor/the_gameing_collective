@@ -7,7 +7,7 @@ urlpatterns = [
     path('finalize', views.finalize_page),
     path('process', views.finalize_account),
     path('user/login', views.login_view),
-    path('account', views.edit_account),
+    path('account/', views.edit_account),
     path("edit_account", views.update_account),
     path('delete_account', views.delete_account),
     path('logout', views.logout_view),
