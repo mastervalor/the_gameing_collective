@@ -5,7 +5,7 @@ from account.models import Users
 def display_friends(request):
     if 'user_id' not in request.session:
         # Redirect to login page or handle unauthorized access
-        return redirect('login')  # You can replace 'login' with your login URL
+        return redirect('/account/login_create')  # You can replace 'login' with your login URL
 
     user = Users.objects.get(id=request.session['user_id'])
     friends = user.friends.all()  # Get the user's friends
@@ -19,7 +19,7 @@ def display_friends(request):
 def add_friend(request):
     if 'user_id' not in request.session:
         # Redirect to login page or handle unauthorized access
-        return redirect('login')  # You can replace 'login' with your login URL
+        return redirect('/account/login_create')  # You can replace 'login' with your login URL
 
     if request.method == 'POST':
         friend_username = request.POST['friend_username']
