@@ -29,7 +29,7 @@ def get_games():
     igdb_token_check()
 
     # If data is not cached, fetch it from IGDB
-    all_games = igdb_api.get_games()
+    all_games = igdb_api.get_games_list()
 
     # Store the fetched data in the cache
     cache.set(cache_key, all_games, CACHE_TIMEOUT)

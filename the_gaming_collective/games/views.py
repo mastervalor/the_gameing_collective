@@ -6,6 +6,8 @@ from django.core.cache import cache
 from django.http import JsonResponse
 
 # Create your views here.
+
+# Hompage 
 def index(request):
     all_games = get_games()
     
@@ -55,3 +57,23 @@ def get_recent_releases(game_results):
                print(game.get('name'), game.get('id'), game.get('version_title'), game.get('first_release_date'), game.get('platforms.name'))
 
     return recently_released_games
+    
+# One Game Page
+def one_game(request, game_id):
+    all_games = get_games()
+
+    single_game = get_one_game(all_games, game_id)
+
+    print(single_game)
+    
+    return render(request, "one_game.html", {'single_game': single_game})
+
+
+def get_one_game(game_results, game_id):
+    single_game = []
+
+    for game in game_results:
+        if game.get('id') == game_id:
+            single_game.append(game)
+
+    return single_game

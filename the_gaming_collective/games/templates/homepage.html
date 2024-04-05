@@ -124,6 +124,19 @@
                         </ul>
                     </div>
 
+                    <!-- Genre: Default -->
+                    <div class="default_selection">
+                        <div class="game_rows d-flex flex-wrap -flex-rows">
+                            {% for recent_games in recently_released_games %}
+                            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:recent_games.cover.image_id|add:".jpg" %}
+                            <a href="/games/{{recent_games.id}}" class="recent_games d-flex flex-rows m-2">
+                                <img class="rounded img-fluid" src="{{image_url}}" alt="{{recent_games.name}}" />
+                            </a>
+                            {% endwith %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <!-- Genre: Fighting -->
                     <div class="fighting_selection hidden-content">
                         <div class="game_rows d-flex flex-wrap -flex-rows">
@@ -300,9 +313,6 @@
                             {% endfor %}
                         </div>
                     </div>
-
-
-
                 </main>
             </div>
         </div>

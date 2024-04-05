@@ -6,7 +6,7 @@ import json
 import requests
 
 IGDB_CLIENT_ID = "1ucj7p9lz76qmng4s8xpcwoh0h69j5"
-IGDB_API_KEY = "5qm7yknzijrnanrgy315m97mmq2esp"
+IGDB_API_KEY = "5qm7yknzijrnanrgy315m97mmq2esp" #xxt4b3edw4naybndia41x6mztikri5
 
 def validate_api_key(api_key):
     igdb_api_endpoint = "https://api.igdb.com/v4/games"
@@ -18,6 +18,8 @@ def validate_api_key(api_key):
 
     response = requests.post(igdb_api_endpoint, headers=headers)
 
+    print(response.url)
+
     if response.status_code == 200:
         return True;
     else:
@@ -27,8 +29,8 @@ def update_api_key():
     twitch_api_endpoint = "https://id.twitch.tv/oauth2/token"
 
     params = {
-        "client-id": "1ucj7p9lz76qmng4s8xpcwoh0h69j5",
-        "client-secret": "bxndbawidy3h9921ks7dkn4xpzovrh",
+        "client_id": "1ucj7p9lz76qmng4s8xpcwoh0h69j5",
+        "client_secret": "5uvqpxec96xxlfb87dba8hs07rvac1",
         "grant_type": "client_credentials"
     }
 
@@ -41,7 +43,7 @@ def update_api_key():
         global IGDB_API_KEY
         IGDB_API_KEY = new_api_key
 
-        print(f"API Token updated successfully: {IGDB_API_Key}")
+        print(f"API Token updated successfully: {IGDB_API_KEY}")
     else:
         print("Failed to obtain new API Token")
 
@@ -58,13 +60,17 @@ def igdb_token_check():
         else:
             print("API key updated successfully.")
     else:
-        print("API key is valid.")
+        print(f"\nAPI Token: {IGDB_API_KEY}")
+        print("API key is valid.\n")
+        
+igdb_token_check()
 
 wrapper = IGDBWrapper(IGDB_CLIENT_ID, IGDB_API_KEY)
+print(wrapper)
 
 class igdb_api(View):
     @classmethod
-    def get_games(cls):
+    def get_games_list(cls):
 
         all_games = []
         developers = [
@@ -104,7 +110,7 @@ class igdb_api(View):
         while True:
             response = wrapper.api_request(
                 'games',
-                f'fields name, cover.image_id, summary, first_release_date, rating, age_ratings, platforms, platforms.name, expansions, game_engines, game_modes, genres.name, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, parent_game, version_title, release_dates.human, release_dates.category; offset {offset}; limit {limit}; where ({where_plat}) & ({where_dev}) & ({if_dev});'
+                f'fields name, cover.image_id, summary, first_release_date, rating, age_ratings, platforms, platforms.name, expansions, game_engines, game_modes, genres.name, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, parent_game, version_title, release_dates.human, release_dates.category, videos.name, videos.video_id; offset {offset}; limit {limit}; where ({where_plat}) & ({where_dev}) & ({if_dev});'
             )
 
             games_batch = json.loads(response)

@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rtsContent = document.querySelector('.rts_selection');
     const simContent = document.querySelector('.sim_selection');
     const sportContent = document.querySelector('.sport_selection');
+    const defaultContent = document.querySelector('.default_selection');
 
     genreDropdown.addEventListener("change", function () {
         var selectedGenre = this.value;
@@ -92,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'fighting') {
             fightingContent.classList.remove('hidden-content');
@@ -105,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'rpg') {
             actionContent.classList.add('hidden-content');
@@ -118,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'fighting') {
             actionContent.classList.add('hidden-content');
@@ -131,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'shooter') {
             actionContent.classList.add('hidden-content');
@@ -144,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'music') {
             actionContent.classList.add('hidden-content');
@@ -157,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'platform') {
             actionContent.classList.add('hidden-content');
@@ -170,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'puzzle') {
             actionContent.classList.add('hidden-content');
@@ -183,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'racing') {
             actionContent.classList.add('hidden-content');
@@ -196,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'rts') {
             actionContent.classList.add('hidden-content');
@@ -209,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.remove('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'simulator') {
             actionContent.classList.add('hidden-content');
@@ -222,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.remove('hidden-content');
             sportContent.classList.add('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else if (selectedGenre === 'sport') {
             actionContent.classList.add('hidden-content');
@@ -235,8 +247,10 @@ document.addEventListener("DOMContentLoaded", function () {
             rtsContent.classList.add('hidden-content');
             simContent.classList.add('hidden-content');
             sportContent.classList.remove('hidden-content');
+            defaultContent.classList.add('hidden-content');
         }
         else {
+            defaultContent.classList.remove('hidden-content');
             actionContent.classList.add('hidden-content');
             rpgContent.classList.add('hidden-content');
             fightingContent.classList.add('hidden-content');
@@ -252,3 +266,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 /* Filter Buttons */
+
+/* Single Game Data */
+document.addEventListener("DOMContentLoaded", function () {
+    // Since single_game is an array with one object, access the first object directly
+    console.log("DOMContentLoaded fired.");
+    console.log("single_game:", single_game);
+    const game = single_game[0];
+    console.log("Game data:", game)
+
+    // Assuming there's always at least one game object in the array
+    if (game) {
+        // Handle release date
+        if (game.first_release_date) {
+            const releaseDateElement = document.querySelector('.single_formatted_release_date');
+            const unixTimestamp = game.first_release_date;
+            const releaseDate = new Date(unixTimestamp * 1000);
+            const formattedDate = `${String(releaseDate.getDate()).padStart(2, '0')}/${String(releaseDate.getMonth() + 1).padStart(2, '0')}/${releaseDate.getFullYear()}`;
+            releaseDateElement.textContent = "Release Date: " + formattedDate;
+        }
+
+        // Handle platforms
+        if (game.platforms && game.platforms.length > 0) {
+            const platformElement = document.querySelector('.single_platforms');
+            const platforms = game.platforms.map(platform => platform.name).join(', ');
+            platformElement.textContent = "Platforms: " + platforms;
+        }
+    }
+});
+/* Single Game Data */
+
+console.log("Script");

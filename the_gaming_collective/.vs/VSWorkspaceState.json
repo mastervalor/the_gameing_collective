@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\general",
+    "\\friends_app",
+    "\\games",
+    "\\games\\static",
+    "\\games\\templates",
     "\\the_gaming_collective"
   ],
-  "SelectedNode": "\\the_gaming_collective\\settings.py",
+  "SelectedNode": "\\games\\static\\home_page_style.css",
   "PreviewInSolutionExplorer": false
 }

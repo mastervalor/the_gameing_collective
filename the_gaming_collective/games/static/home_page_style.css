@@ -47,8 +47,6 @@ body {
     text-align: left;
 }
 
-
-
 .navbar-toggler:focus {
     border-color: #007BFF;
     outline: none !important;
@@ -112,9 +110,9 @@ body {
     color: aliceblue;
 }
 
-.search-bar:focus {
+.search-bar:focus, textarea {
     background: none; 
-    outline: none;
+    outline: none !important;
     border-color: #007BFF;
     color: aliceblue;
 }
@@ -266,4 +264,37 @@ option {
 
 .hidden-content {
     display: none;
+}
+
+/* Single Game Page */
+.single_game_info {
+    display: flex;
+    margin-bottom: -35%;
+}
+
+.single_game_image {
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.game_cover {
+    height: 50%;
+    border-radius: 5%;
+}
+
+.single_game_title {
+    margin-top: 5%;
+    margin-left: 2.5%;
+    color: aliceblue;
+}
+
+.video_container {
+    margin-left: 15%;
+    margin-top: 0%;
+}
+
+iframe {
+    width: 854px;
+    height: 480px;
+    border-radius: 2%;
 }
