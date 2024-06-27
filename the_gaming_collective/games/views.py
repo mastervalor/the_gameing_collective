@@ -63,10 +63,14 @@ def one_game(request, game_id):
     all_games = get_games()
 
     single_game = get_one_game(all_games, game_id)
+    
+    context = {
+        'single_game': json.dumps(single_game)
+    }
 
     print(single_game)
     
-    return render(request, "one_game.html", {'single_game': single_game})
+    return render(request, "one_game.html", context)
 
 
 def get_one_game(game_results, game_id):

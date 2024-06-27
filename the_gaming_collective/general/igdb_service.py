@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from general.igdb_api import igdb_api, igdb_token_check  # Import your IGDB API client
+from general.igdb_api import igdb_api, igdb_token_check, get_games_in_batches  # Import your IGDB API client
 from datetime import datetime, timedelta
 
 CACHE_TIMEOUT = 1800  # Set your cache timeout in seconds
@@ -29,7 +29,7 @@ def get_games():
     igdb_token_check()
 
     # If data is not cached, fetch it from IGDB
-    all_games = igdb_api.get_games_list()
+    all_games = get_games_in_batches()
 
     # Store the fetched data in the cache
     cache.set(cache_key, all_games, CACHE_TIMEOUT)

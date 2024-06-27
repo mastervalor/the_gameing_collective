@@ -5,8 +5,9 @@
     "\\games",
     "\\games\\static",
     "\\games\\templates",
+    "\\general",
     "\\the_gaming_collective"
   ],
-  "SelectedNode": "\\games\\static\\home_page_style.css",
+  "SelectedNode": "\\general\\igdb_api.py",
   "PreviewInSolutionExplorer": false
 }
