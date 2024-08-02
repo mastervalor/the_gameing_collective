@@ -1,0 +1,313 @@
+body {
+    background-color: #1F2833;
+}
+
+.sidebar {
+    position: fixed;
+    align-items:flex-start;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding-top: 56px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 250px;
+    background-color: #0B0C10;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.collapsed {
+    width: 5%; /* Adjusts the width when collapsed */
+}
+
+.navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.navbar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.site-name {
+    color: aliceblue;
+}
+
+.site-name:hover {
+    color: #A0D2EB;
+}
+
+.nav-link {
+    padding: 8px 10px;
+    color: #E5EAF5;
+    text-align: left;
+}
+
+.navbar-toggler:focus {
+    border-color: #007BFF;
+    outline: none !important;
+    background: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* To ensure the above applies when the navbar-toggler has been clicked and the navbar is collapsed */
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.main-content {
+    margin-left: 250px;
+    margin-top: 50px;
+    margin-right: 80px;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .navbar-toggler {
+        margin-bottom: 10px;
+        background: none;
+        border: none;
+        outline: none;
+        color: aliceblue;
+        font-size: 20px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+.main-content.collapsed {
+    margin-left: 71px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: 71px;
+    transition: margin-left 0.3s ease;
+}
+
+.search-bar {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #CCC;
+    color: aliceblue;
+}
+
+.search-bar::placeholder {
+    color: aliceblue;
+}
+
+.search-bar:focus, textarea {
+    background: none; 
+    outline: none !important;
+    border-color: #007BFF;
+    color: aliceblue;
+}
+
+/* Carousel Style */
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    color: aliceblue;
+}
+
+.carousel-inner {
+    height: 25%;
+}
+
+.carousel-caption {
+    margin-left: 50px;
+    position: absolute;
+    top: 28.95%;
+    right: -100%;
+    transform: translateY(-50%);
+    visibility: hidden; /* Initital Visibility */
+    transition: right 0.3s, visibility 0.3s; /* Transition for animation */
+}
+
+.carousel-caption-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 29px;
+    display: inline-block;
+    max-width: 350px;
+    overflow: auto;
+    border-radius: 7.5%;
+}
+
+.carousel-item img {
+    max-height: 450px;
+    border-radius: 5%;
+    margin: 0 auto;
+    transition: transform 0.3s;
+    object-fit: contain;
+}
+
+.carousel-item:hover img {
+    transform: translateX(-40%);
+    cursor: pointer;
+}
+
+.image-container:hover .carousel-caption {
+    right: -25%;
+    visibility: visible;
+}
+
+img {
+    opacity: 87%;
+}
+
+img:hover {
+    opacity: 100%;
+}
+
+@media (max-width: 768px) {
+    .carousel {
+        height: 15vh;
+    }
+}
+
+.release-date-left {
+    text-align: left;
+}
+
+.platforms_left {
+    text-align: left;
+}
+
+.hover-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Adjusted gradient for opacity in the center and fading towards the top and bottom edges */
+    background: linear-gradient( 
+        to bottom, /* Change to "to bottom" to have the gradient vertical */
+        rgba(0, 0, 0, 0) 0%, 
+        rgba(0, 0, 0, 0.2) 50%, 
+        rgba(0, 0, 0, 0) 100% );
+    background-size: cover;
+    filter: blur(10px);
+    opacity: 0; /* This should become 1 on hover */
+    z-index: -1;
+    transition: opacity 0.6s;
+    border-radius: 7.5%;
+}
+
+.image-container:hover .hover-bg {
+    opacity: 0.2; /* Ensure this is triggered on hover */
+}
+
+.line_break {
+    width: 100%;
+    height: 1px;
+    background-color: aliceblue;
+    margin-top: 15px;
+    margin-bottom: 5%;
+    padding: 0;
+}
+
+.recent_releases {
+    color: aliceblue; 
+    text-align: center;
+}
+
+.filter_list {
+    padding: 29px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.genre_dropdown_menu {
+    background: none;
+    color: aliceblue;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #CCC;
+}
+
+.platform_dropdown_menu {
+    background: none;
+    color: aliceblue;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #CCC;
+}
+
+option {
+    color: black;
+}
+
+.game_rows {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.recent_games {
+    width: 16.25%;
+}
+
+.hidden-content {
+    display: none;
+}
+
+/* Single Game Page */
+.single_game_info {
+    display: flex;
+    margin-bottom: -35%;
+}
+
+.single_game_image {
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.game_cover {
+    height: 50%;
+    border-radius: 5%;
+}
+
+.single_game_title {
+    margin-top: 5%;
+    margin-left: 2.5%;
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+}
+
+.video_container {
+    margin-left: 15%;
+    margin-top: 0%;
+}
+
+iframe {
+    width: 854px;
+    height: 480px;
+    border-radius: 2%;
+}
+
+.single_game_info {
+    justify-content: space-around;
+    display: flex;
+}
+
+.platClass {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}

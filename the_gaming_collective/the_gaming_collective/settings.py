@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -124,5 +125,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# default url for autenticaion when use is not logged in
-LOGIN_URL = '/account/login_create/'
+ADMIN_URL = 'admin/'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Replace with your Redis server information
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# Set a cache timeout (in seconds) appropriate for your application
+CACHE_TIMEOUT = 1800  # 2 hours, adjust as needed

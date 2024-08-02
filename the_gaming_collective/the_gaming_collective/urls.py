@@ -22,5 +22,6 @@ urlpatterns = [
     path('games/', include('games.urls')),
     path('', index, name='home'),
     path('friends/', include('friends_app.urls')),
-    path('messages/', include('messaging.urls'))
+    path('messages/', include('messaging.urls')),
+    path('admin/', admin.site.urls)
 ]
