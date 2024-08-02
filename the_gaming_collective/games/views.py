@@ -65,7 +65,7 @@ def one_game(request, game_id):
     single_game = get_one_game(all_games, game_id)
     
     context = {
-        'single_game': json.dumps(single_game)
+        'single_game': single_game
     }
 
     print(single_game)

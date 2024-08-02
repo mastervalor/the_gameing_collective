@@ -286,6 +286,8 @@ option {
     margin-top: 5%;
     margin-left: 2.5%;
     color: aliceblue;
+    display: flex;
+    flex-direction: column;
 }
 
 .video_container {
@@ -297,4 +299,15 @@ iframe {
     width: 854px;
     height: 480px;
     border-radius: 2%;
+}
+
+.single_game_info {
+    justify-content: space-around;
+    display: flex;
+}
+
+.platClass {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
 }

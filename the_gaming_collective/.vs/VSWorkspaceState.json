@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\friends_app",
     "\\games",
-    "\\games\\static",
-    "\\games\\templates",
-    "\\general",
-    "\\the_gaming_collective"
+    "\\general"
   ],
   "SelectedNode": "\\general\\igdb_api.py",
   "PreviewInSolutionExplorer": false
