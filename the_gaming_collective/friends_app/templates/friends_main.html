@@ -5,31 +5,31 @@
 {% endblock %}
 
 {% block main %}
-    <!-- Friends Section -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-light">Friends List</h2>
-                <label for="friend_username" class="form-label text-light">Your current friends</label>
-                <ul class="list-group">
-                    {% for friend in user.friends.all %}
-                        <li class="list-group-item">{{ friend.username }} - {{ friend.first_name }} {{ friend.last_name }}</li>
-                    {% empty %}
-                        <li class="list-group-item">No friends added yet.</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h2 class="text-light">Add New Friends</h2>
-                <form action="/friends/add_friend" method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="friend_username" class="form-label text-light">Username or Email:</label>
-                        <input type="text" id="friend_username" name="friend_username" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Friend</button>
-                </form>
-            </div>
+<!-- Friends Section -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="text-light">Friends List</h2>
+            <label for="friend_username" class="form-label text-light">Your current friends</label>
+            <ul class="list-group">
+                {% for friend in user.friends.all %}
+                    <li class="list-group-item">{{ friend.username }} - {{ friend.first_name }} {{ friend.last_name }}</li>
+                {% empty %}
+                    <li class="list-group-item">No friends added yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-light">Add New Friends</h2>
+            <form action="/friends/add_friend" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="friend_username" class="form-label text-light">Username or Email:</label>
+                    <input type="text" id="friend_username" name="friend_username" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Friend</button>
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}
