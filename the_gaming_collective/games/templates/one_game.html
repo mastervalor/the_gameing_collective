@@ -1,113 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>OneGame</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'home_page_style.css' %}">
+{% extends "layout.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block extra_scripts %}
     <script>
         var singleGame = {{ single_game| safe }};
     </script>
-</head>
-    <body>
-        <div class="inner_body container-fluid">
-            <div class="row">
-                <nav class="navbar col-md-3  col-lg-2 sidebar collapsed">
-                    <div class="navbar-header">
-                        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                            <a class="site-name navbar-brand ms-2" href="/">TCG</a>
-                            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
-                                <li class="nav-item">
-                                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link ms-2" href="/friends">Friends</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link ms-2" href="/messages">Messages</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link ms-2" href="/account/account">Account</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link ms-2" href="/help">Help</a>
-                                </li>
-                            </ul>
-                            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
-                                {% csrf_token %}
-                                <input class="search-bar form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
-                            </form>
-                        </div>
-                    </div>
-                </nav>
+{% endblock %}
 
-                <div class="single_game_info">
-                    {% for game in single_game %}
-                    {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:game.cover.image_id|add:".jpg" %}
-                    <div class="single_game_image">
-                        <img class="game_cover" src="{{ image_url }}" alt="{{ game.name }} Cover" />
-                    </div>
-                    <div class="single_game_title">
-                        <h2>{{ game.name }}</h2>
-                        <p class="single_game_summary">{{ game.summary }}</p>
-                        <div class="single_game_info">
-                            <div class="platClass">
-                                <p id="plat">Platform(s):</p>
-                                {% for platform in game.platforms %}
-                                    <p class="single_platforms">{{ platform.name }}</p>
-                                {% endfor %}
-                            </div>
-                            <p class="genre">Genre(s):</p>
-                            {% for genre in game.genres %}
-                                <p class="single_genres">{{ genre.name }}</p>
-                            {% endfor %}
-                            <p class="companies">Developer(s) / Publisher(s):</p>
-                            {% for involvedCompany in game.involved_companies %}
-                                {% if involvedCompany.developer %}
-                                    <p class="single_developer">{{ involvedCompany.company.name }}</p>
-                                {% elif invlovedCompany.publisher %}
-                                    <p class="single_publishers">{{ involvedCompany.company.name }}</p>
-                                {% endif %}
-                            {% endfor %}
-                            <p class="single_formatted_release_date"></p>
-                        </div>
-                    </div>
-                    {% endwith %}
-                    {% endfor %}
+{% block main %}
+<div class="inner_body container-fluid">
+    <div class="row">
+        <nav class="navbar col-md-3  col-lg-2 sidebar collapsed">
+            <div class="navbar-header">
+                <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <a class="site-name navbar-brand ms-2" href="/">TCG</a>
+                    <ul class="navbar-nav mb-lg-0 me-auto mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link ms-2" href="/games/games_list">Games</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-2" href="/friends">Friends</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-2" href="/messages">Messages</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-2" href="/account/account">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-2" href="/help">Help</a>
+                        </li>
+                    </ul>
+                    <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
+                        {% csrf_token %}
+                        <input class="search-bar form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
+                    </form>
                 </div>
-                <div class="video_container">
-                    {% for game in single_game %}
-                    {% for video in game.videos %}
-                    {% if "Announcement Trailer" in video.name or "Trailer" in video.name %}
-                    {% with video_url="https://www.youtube.com/embed/"|add:video.video_id %}
-                    <div class="single_game_video">
-                        <iframe src="{{ video_url }}"></iframe>
-                    </div>
-                    {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                </div>
-
             </div>
+        </nav>
+
+        <div class="single_game_info">
+            {% for game in single_game %}
+            {% with image_url="https://images.igdb.com/igdb/image/upload/t_1080p/"|add:game.cover.image_id|add:".jpg" %}
+            <div class="single_game_image">
+                <img class="game_cover" src="{{ image_url }}" alt="{{ game.name }} Cover" />
+            </div>
+            <div class="single_game_title">
+                <h2>{{ game.name }}</h2>
+                <p class="single_game_summary">{{ game.summary }}</p>
+                <div class="single_game_info">
+                    <div class="platClass">
+                        <p id="plat">Platform(s):</p>
+                        {% for platform in game.platforms %}
+                            <p class="single_platforms">{{ platform.name }}</p>
+                        {% endfor %}
+                    </div>
+                    <p class="genre">Genre(s):</p>
+                    {% for genre in game.genres %}
+                        <p class="single_genres">{{ genre.name }}</p>
+                    {% endfor %}
+                    <p class="companies">Developer(s) / Publisher(s):</p>
+                    {% for involvedCompany in game.involved_companies %}
+                        {% if involvedCompany.developer %}
+                            <p class="single_developer">{{ involvedCompany.company.name }}</p>
+                        {% elif invlovedCompany.publisher %}
+                            <p class="single_publishers">{{ involvedCompany.company.name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <p class="single_formatted_release_date"></p>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+        <div class="video_container">
+            {% for game in single_game %}
+            {% for video in game.videos %}
+            {% if "Announcement Trailer" in video.name or "Trailer" in video.name %}
+            {% with video_url="https://www.youtube.com/embed/"|add:video.video_id %}
+            <div class="single_game_video">
+                <iframe src="{{ video_url }}"></iframe>
+            </div>
+            {% endwith %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
 
-        <!-- JQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <!-- JS Bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
-        <!-- Youtube API -->
-        <script src="https://www.youtube.com/iframe_api"></script>
-
-        {% load static %}
-        <script src="{% static 'one_game.js' %}"></script>
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}
