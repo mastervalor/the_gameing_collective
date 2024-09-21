@@ -1,5 +1,5 @@
 from django.test import TestCase
-from account.models import UserManager, Users
+from account.models import UserManager, Users, Devices
 
 class TestAccountModelsUserManager(TestCase):
     def setUp(self):
@@ -178,3 +178,13 @@ class TestAccountModelsUserManager(TestCase):
         errors = self.user_manager.edit_user_validator(postData)
         self.assertIn('login', errors)
          
+
+class DevicesModelTest(TestCase):
+    def test_create_device(self):
+        device = Devices.objects.create(device="Smartphone", dev_id=101)
+        self.assertEqual(device.device, "Smartphone")
+        self.assertEqual(device.dev_id, 101)
+    
+    def test_device_max_length(self):
+        device = Devices.objects.create(device="a" * 45, dev_id=102)
+        self.assertEqual(device.device, "a" * 45)
