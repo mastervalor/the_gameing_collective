@@ -150,5 +150,31 @@ class TestAccountModelsUserManager(TestCase):
         }
         
         errors = self.user_manager.edit_user_validator(postData)
+        self.assertEqual(errors, {})
+        
+    def test_finalize_invalid_usernam(self):
+        postData = {
+        'devices': ['Xbox'],
+        'username': 'j'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
+    
+    def test_finalize_no_devices(self):
+        postData = {
+        'username': 'janesmith'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
         self.assertIn('login', errors)
         
+    def test_finalize_duplicate_username(self):
+        postData = {
+            'devices': ['Xbox'],
+            'username': 'johndoe'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
+         
