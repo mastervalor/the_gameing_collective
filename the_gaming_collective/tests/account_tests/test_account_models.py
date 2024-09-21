@@ -77,7 +77,7 @@ class TestAccountModelsUserManager(TestCase):
             'email': 'valid.email@example.com',
             'first_name': 'Jane',
             'last_name': 'Smith',
-            'devices': ['device1'],
+            'devices': ['Xbox'],
             'username': 'janesmith'
         }
         
@@ -89,7 +89,7 @@ class TestAccountModelsUserManager(TestCase):
             'email': 'invalid.email',
             'first_name': 'Jane',
             'last_name': 'Smith',
-            'devices': ['device1'],
+            'devices': ['Xbox'],
             'username': 'janesmith'
         }
         
@@ -124,7 +124,7 @@ class TestAccountModelsUserManager(TestCase):
             'email': 'valid.email@example.com',
             'first_name': 'Jane',
             'last_name': 'Smith',
-            'devices': ['device1'],
+            'devices': ['Xbox'],
             'username': 'johndoe'
         }
         
@@ -136,11 +136,19 @@ class TestAccountModelsUserManager(TestCase):
             'email': 'valid.email@example.com',
             'first_name': 'Jane',
             'last_name': 'Smith',
-            'devices': ['device1'],
+            'devices': ['Xbox'],
             'username': 'j'
         }
+        
         errors = self.user_manager.edit_user_validator(postData)
         self.assertIn('login', errors)
         
-    def test_finalize_valid_user_validator(self)
+    def test_finalize_valid_user_validator(self):
+        postData = {
+        'devices': ['Xbox'],
+        'username': 'janesmith'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
         
