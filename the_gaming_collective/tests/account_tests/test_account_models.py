@@ -72,7 +72,7 @@ class TestAccountModelsUserManager(TestCase):
         errors = self.user_manager.default_user_validator(postData)
         self.assertIn('login', errors)
         
-    def test_vaild_data(self):
+    def test_vaild_edit_data(self):
         postData = {
             'email': 'valid.email@example.com',
             'first_name': 'Jane',
@@ -84,7 +84,7 @@ class TestAccountModelsUserManager(TestCase):
         errors = self.user_manager.edit_user_validator(postData)
         self.assertEqual(errors, {})
         
-    def test_invalid_email(self):
+    def test_invalid_edit_email(self):
         postData = {
             'email': 'invalid.email',
             'first_name': 'Jane',
@@ -96,7 +96,7 @@ class TestAccountModelsUserManager(TestCase):
         errors = self.user_manager.edit_user_validator(postData)
         self.assertIn('login', errors)
         
-    def test_short_first_name(self):
+    def test_edit_short_first_name(self):
         postData = {
             'email': 'valid.email@example.com',
             'password': 'ValidPassword1!',
@@ -107,3 +107,40 @@ class TestAccountModelsUserManager(TestCase):
         
         errors = self.user_manager.edit_user_validator(postData)
         self.assertIn('login', errors)
+        
+    def test_edit_no_device(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'first_name': 'Jane',
+            'last_name': 'Smith',
+            'username': 'janesmith'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
+        
+    def test_edit_duplicate_username(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'first_name': 'Jane',
+            'last_name': 'Smith',
+            'devices': ['device1'],
+            'username': 'johndoe'
+        }
+        
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
+        
+    def test_edit_short_username(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'first_name': 'Jane',
+            'last_name': 'Smith',
+            'devices': ['device1'],
+            'username': 'j'
+        }
+        errors = self.user_manager.edit_user_validator(postData)
+        self.assertIn('login', errors)
+        
+    def test_finalize_valid_user_validator(self)
+        
