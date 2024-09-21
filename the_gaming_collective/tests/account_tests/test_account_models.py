@@ -188,3 +188,11 @@ class DevicesModelTest(TestCase):
     def test_device_max_length(self):
         device = Devices.objects.create(device="a" * 45, dev_id=102)
         self.assertEqual(device.device, "a" * 45)
+        
+    def test_invalid_device_max_lenth(self):
+        with self.assertRaises(Exception):
+            Devices.objects.create(device="a" * 46, dev_id=103) 
+    
+    def test_invalid_device_max_length(self):
+        with self.assertRaises(Exception):
+            Devices.objects.create(device="Tablet")
