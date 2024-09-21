@@ -29,3 +29,38 @@ class TestAccountModelsUserManager(TestCase):
         errors = self.user_manager.default_user_validator(postData)
         self.assertIn('login', errors)
         
+    def test_short_first_name(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'password': 'ValidPassword1!',
+            'password_confirm': 'ValidPassword1!',
+            'first_name': 'J',
+            'last_name': 'Doe'
+        }
+        
+        errors = self.user_manager.default_user_validator(postData)
+        self.assertIn('login', errors)
+        
+    def test_passwords_do_not_match(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'password': 'ValidPassword1!',
+            'password_confirm': 'ValidPaword1!',
+            'first_name': 'J',
+            'last_name': 'Doe'
+        }
+        
+        errors = self.user_manager.default_user_validator(postData)
+        self.assertIn('login', errors)
+        
+    def test_short_password(self):
+        postData = {
+            'email': 'valid.email@example.com',
+            'password': 'Valid!',
+            'password_confirm': 'Valid!',
+            'first_name': 'J',
+            'last_name': 'Doe'
+        }
+        
+        errors = self.user_manager.default_user_validator(postData)
+        self.assertIn('login', errors)
