@@ -58,21 +58,21 @@
                         <p class="single_game_summary">{{ game.summary }}</p>
                         <div class="single_game_info">
                             <div class="platClass">
-                                <p id="plat">Platform(s):</p>
+                                <p id="plat">Platform(s): </p>
                                 {% for platform in game.platforms %}
-                                    <p class="single_platforms">{{ platform.name }}</p>
+                                    <p class="single_platforms"> {{ platform.name }}</p>
                                 {% endfor %}
                             </div>
                             <p class="genre">Genre(s):</p>
                             {% for genre in game.genres %}
-                                <p class="single_genres">{{ genre.name }}</p>
+                                <p class="single_genres"> {{ genre.name }}</p>
                             {% endfor %}
-                            <p class="companies">Developer(s) / Publisher(s):</p>
+                            <p class="companies">Developer(s) / Publisher(s): </p>
                             {% for involvedCompany in game.involved_companies %}
                                 {% if involvedCompany.developer %}
-                                    <p class="single_developer">{{ involvedCompany.company.name }}</p>
+                                    <p class="single_developer"> {{ involvedCompany.company.name }}</p>
                                 {% elif invlovedCompany.publisher %}
-                                    <p class="single_publishers">{{ involvedCompany.company.name }}</p>
+                                    <p class="single_publishers"> {{ involvedCompany.company.name }}</p>
                                 {% endif %}
                             {% endfor %}
                             <p class="single_formatted_release_date"></p>

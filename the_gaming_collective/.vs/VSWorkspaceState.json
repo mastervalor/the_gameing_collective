@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\games",
-    "\\general"
+    "\\games\\static",
+    "\\general",
+    "\\the_gaming_collective"
   ],
   "SelectedNode": "\\general\\igdb_api.py",
   "PreviewInSolutionExplorer": false

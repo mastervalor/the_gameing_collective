@@ -69,12 +69,6 @@ wrapper = IGDBWrapper(IGDB_CLIENT_ID, IGDB_API_KEY)
 print(wrapper)
 
 def get_games_in_batches():
-    url = "https://api.igdb.com/v4/games"
-    headers = {
-        "Client-ID": IGDB_CLIENT_ID,
-        "Authorization": f"Bearer {IGDB_API_KEY}"
-    }
-    
     developers = [
             "Nintendo", "Square Enix", "Ubisoft Entertainment",
             "Activision", "Activision Blizzard",
@@ -100,35 +94,54 @@ def get_games_in_batches():
     ]
 
     all_games = []
-    limit = 250
-    offset = 0
+    limit = 50
+    offset = 500
     
     where_plat = 'platforms.name = "Xbox Series X|S" | platforms.name = "PlayStation 5" | platforms.name = "Nintendo Switch" | platforms.name = "PC"'
     where_dev = " | ".join([f'involved_companies.company.name = "{name}"' for name in developers])
     if_dev = 'involved_companies.developer = true'
     
-    while True:
-        query = f"""fields name, cover.image_id, summary, first_release_date, rating, age_ratings, age_ratings.rating_cover_url, platforms, platforms.name, expansions, game_engines, game_modes, genres.name, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, parent_game, version_title, release_dates.human, release_dates.category, videos.name, videos.video_id; 
-                  offset {offset}; 
-                  limit {limit}; 
-                  where ({where_plat}) & ({where_dev}) & ({if_dev});"""
-        
-        try:
-            response = requests.post(url, headers=headers, data=query, timeout=30)
-            response.raise_for_status()
-            games_batch = response.json()
+    for name in developers:
+        offest = 0
+        # where_dev = f'involved_companies.company.name = \"{name}\"'
+
+        while True:
+            try:
+                url = "https://api.igdb.com/v4/games"
+                headers = {
+                    "Client-ID": IGDB_CLIENT_ID,
+                    "Authorization": f"Bearer {IGDB_API_KEY}"
+                }
+
+                # fields: name, cover.image_id, summary, first_release_date, rating, age_ratings, age_ratings.rating_cover_url, platforms, platforms.name, expansions, game_engines, game_modes, genres.name, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, parent_game, version_title, release_dates.human, release_dates.category, videos.name, videos.video_id
+                # Dev: & ({if_dev})
+
+                query = f"""fields name, cover.image_id, summary, first_release_date, rating, age_ratings, age_ratings.rating_cover_url, platforms, platforms.name, expansions, game_engines, game_modes, genres.name, multiplayer_modes, player_perspectives, screenshots, websites, involved_companies.company.name, involved_companies.developer, involved_companies.publisher, parent_game, version_title, release_dates.human, release_dates.category, videos.name, videos.video_id; 
+                        offset {offset}; 
+                        limit {limit}; 
+                        where ({where_plat}) & ({where_dev});"""
+
+                print(query)
+
+                response = requests.post(url, headers=headers, data=query, timeout=1800)
+                response.raise_for_status()
+                games_batch = response.json()
             
-            if not games_batch:
-                break
+                if not games_batch:
+                    break
             
-            all_games.extend(games_batch)
+                all_games.extend(games_batch)
+            
+            except requests.exceptions.Timeout:
+                print("The request timed out")
+            
+            except requests.exceptions.RequestException as e:
+                print(f"An error occured: {e}")
+            
             offset += limit
-        except requests.exceptions.Timeout:
-            print("The request timed out")
-            break
-        except requests.exceptions.RequestException as e:
-            print(f"An error occured: {e}")
-            break
+
+            if offest > 4000:
+                break
     return all_games    
     
 class igdb_api(View):
