@@ -8,10 +8,7 @@
     <title>Homepage</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home_page_style.css' %}">
-    <script>
-        <!-- var upcomingGames = {{ upcoming_games| safe }};
-        var recentGames = {{ recently_released_games| safe }}; -->
-    </script>
+
 </head>
 <body>
     <div class="inner_body container-fluid">
@@ -54,7 +51,7 @@
     <main class="container-fluid py-5 text-center">
         {% block main %}{% endblock %}
     </main>
-
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- JS Bootstrap -->

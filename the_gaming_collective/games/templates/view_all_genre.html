@@ -1,58 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>view_all_genre</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    {% load static %} 
-    <link rel="stylesheet" href="{% static 'css/games_stylesheet.css' %}">
-</head>
-<body style="background-color: #303030">
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #121212;">
-        <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand ms-2" href="/games/homepage">Gaming Collective</a>
-        
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mb-lg-0 me-auto mb-2">
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/games/games_list">Games</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/friends">Friends</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/messages/chats">Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/account/account">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-2" href="/help">Help</a>
-                </li>
-            </ul>
-            <form action="/games/search_results" class="form-inline my-2 my-lg-0 d-flex" method="post">
-                {% csrf_token %}
-                <input class="form-control ms-sm-2 me-2" name="search_name" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 me-sm-2" type="submit">Search</button>
-            </form>
-            {% if 'user_id' in request.session %}
-                <a href="/account/logout" class="btn btn-danger btn-outline-dark" style = "margin-right: 10px">Log out</a>
-            {% endif %}
-        </div>
-    </nav>
-    <div class="outer_container  mt-5 w-auto">
-        <div class="header_contianer d-flex justify-content-between">
-            <h2 class="ms-2" style="color: white; font-family: Arial, Helvetica, sans-serif;">All Games</h2>
-        </div>
+{% extends "layout.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+{% block main %}
+<div class="outer_container  mt-5 w-auto">
+    <div class="header_contianer d-flex justify-content-between">
+        <h2 class="ms-2" style="color: white; font-family: Arial, Helvetica, sans-serif;">All Games</h2>
     </div>
-    <div class="d-flex flex-wrap flex-row mx-auto justify-content-center">
-        {% for games in genre_list %}
-            <a href="/games/{{games.id}}" class="d-flex flex-rows m-2" style="width: 16.25%;">
-                <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-            </a>
-        {% endfor %} 
-    </div>
-</body>
-</html>
+</div>
+<div class="d-flex flex-wrap flex-row mx-auto justify-content-center">
+    {% for games in genre_list %}
+        <a href="/games/{{games.id}}" class="d-flex flex-rows m-2" style="width: 16.25%;">
+            <img class="game_images rounded img-fluid" src="https://images.igdb.com/igdb/image/upload/t_1080p/{{games.cover.image_id}}.jpg" alt="{{games.name}}" width="100%" style="opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        </a>
+    {% endfor %} 
+</div>
+{% endblock %}

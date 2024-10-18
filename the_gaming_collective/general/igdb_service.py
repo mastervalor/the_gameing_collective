@@ -3,7 +3,7 @@ from general.igdb_api import igdb_api, igdb_token_check, get_games_in_batches  #
 from datetime import datetime, timedelta
 from celery import shared_task
 
-CACHE_TIMEOUT = 300  # Set your cache timeout in seconds
+CACHE_TIMEOUT = 1800  # Set your cache timeout in seconds
 
 def get_games():
     cache_key = 'games'
