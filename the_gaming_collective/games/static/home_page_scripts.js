@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const releaseDateElements = document.querySelectorAll('.formatted-release-date');
     const platformElements = document.querySelectorAll('.platforms');
 
+    console.log("Upcoming", upcomingGames);
+    console.log("Upcoming_games", upcoming_games);
+
     for (let i = 0; i < releaseDateElements.length; i++) {
         const releaseDateElement = releaseDateElements[i];
         const game = upcomingGames[i];

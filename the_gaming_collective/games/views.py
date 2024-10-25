@@ -42,7 +42,7 @@ def get_recent_releases(game_results):
 
     today = datetime.datetime.now().date()
 
-    delta = datetime.timedelta(days=365)
+    delta = datetime.timedelta(days=90)
 
     date_60_days_ago = today - delta
 

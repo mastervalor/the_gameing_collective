@@ -1,6 +1,7 @@
 from django.core.cache import cache
 from general.igdb_api import igdb_api, igdb_token_check, get_games_in_batches  # Import your IGDB API client
 from datetime import datetime, timedelta
+from celery import shared_task
 
 CACHE_TIMEOUT = 1800  # Set your cache timeout in seconds
 
@@ -39,3 +40,8 @@ def get_games():
     cache.set(expiration_time_key, expiration_time, CACHE_TIMEOUT)
 
     return all_games
+
+
+@shared_task
+def fetch_games_task():
+    return get_games_in_batches()

@@ -139,3 +139,7 @@ CACHES = {
 
 # Set a cache timeout (in seconds) appropriate for your application
 CACHE_TIMEOUT = 1800  # 2 hours, adjust as needed
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'  # Use Redis as the message broker
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'

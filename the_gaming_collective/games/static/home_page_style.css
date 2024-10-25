@@ -314,8 +314,8 @@ iframe {
 }
 
 .single_game_info {
-    justify-content: space-around;
     display: flex;
+    justify-content: space-evenly;
 }
 
 .platClass {
