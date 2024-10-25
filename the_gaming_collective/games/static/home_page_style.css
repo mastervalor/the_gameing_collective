@@ -2,24 +2,23 @@ body {
     background-color: #1F2833;
 }
 
-.sidebar {
+body .sidebar {
     position: fixed;
-    align-items:flex-start;
+    align-items: flex-start;
     top: 0;
     bottom: 0;
     left: 0;
     z-index: 1000;
     padding-top: 56px;
-    padding-left: 0;
-    padding-right: 0;
-    width: 250px;
+    padding-right: 15px;
+    width: 250px !important; /* Default full width */
     background-color: #0B0C10;
-    transition: all 0.3s ease;
+    transition: width 0.3s ease;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar.collapsed {
-    width: 5%; /* Adjusts the width when collapsed */
+    width: 65px !important; /* Ensure a reasonable width when collapsed */
 }
 
 .navbar-nav {
@@ -42,9 +41,19 @@ body {
 }
 
 .nav-link {
-    padding: 8px 10px;
+    padding: 10px 15px; /* More consistent padding for links */
     color: #E5EAF5;
     text-align: left;
+}
+
+.navbar-toggler {
+    margin-left: 0;
+    margin-bottom: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    color: aliceblue;
+    font-size: 20px;
 }
 
 .navbar-toggler:focus {
@@ -57,13 +66,12 @@ body {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* To ensure the above applies when the navbar-toggler has been clicked and the navbar is collapsed */
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 .main-content {
-    margin-left: 250px;
+    margin-left: 250px !important;
     margin-top: 50px;
     margin-right: 80px;
     transition: margin-left 0.3s ease;
@@ -71,7 +79,11 @@ body {
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 100%;
+        width: 100%; /* Full width for mobile */
+    }
+
+    .sidebar.collapsed {
+        width: 50px; /* Ensure it's small but still visible on mobile */
     }
 
     .navbar-toggler {
@@ -89,12 +101,12 @@ body {
 }
 
 .main-content.collapsed {
-    margin-left: 71px;
+    margin-left: 71px !important;
     transition: margin-left 0.3s ease;
 }
 
 .sidebar.collapsed + .main-content {
-    margin-left: 71px;
+    margin-left: 71px !important;
     transition: margin-left 0.3s ease;
 }
 
