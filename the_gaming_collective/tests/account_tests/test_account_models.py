@@ -201,3 +201,17 @@ class UsersModelTest(TestCase):
     def setUp(self):
         self.device1 = Devices.objects.create(device="Laptop", dev_id=123)
         self.device2 = Devices.objects.create(device="Phone", dev_id=456)
+        self.user1 = Users.objects.create(
+            email="user1@example.com",
+            password="hashed_password1",
+            first_name="John",
+            last_name="Doe",
+            username="johndoe"
+        )
+        self.user2 = Users.objects.create(
+            email="user2@example.com",
+            password="hashed_password2",
+            first_name="Jane",
+            last_name="Doe",
+            username="janedoe"
+        )
