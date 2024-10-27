@@ -245,3 +245,15 @@ class UsersModelTest(TestCase):
         self.assertEqual(max_length_first_name, 45)
         self.assertEqual(max_length_last_name, 45)
         
+    def test_invalid_username_max_length(self):
+        """Test that exceeding username max_length raises an error."""
+        with self.assertRaises(Exception):
+            Users.objects.create(
+                email="longusername@example.com",
+                password="hashed_password",
+                first_name="John",
+                last_name="Doe",
+                username="a" * 46
+            )
+            
+        
