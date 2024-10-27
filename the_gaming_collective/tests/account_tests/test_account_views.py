@@ -51,4 +51,11 @@ class TestAccountViews(TestCase):
         self.assertRedirects(response, '/account/user/create')
         messages_list = list(response.wsgi_request._messages)
         self.assertGreater(len(messages_list), 0)
-        
+    
+    def test_login_view_success(self):
+        self.user.password = bcrypt.hashpw("password123".encode(), bcrypt.gensalt()).decode()
+        self.user.save()
+        postData = {'email': self.user.email, 'password': 'password123'}
+        response = self.client.post(reverse('login_view'), postData)
+        self.assertRedirects(response, '/')
+        self.assertEqual(self.client.session['user_id'], self.user.id)    
