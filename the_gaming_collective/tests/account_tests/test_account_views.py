@@ -82,4 +82,10 @@ class TestAccountViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'edit_account.html')
         self.assertEqual(response.context['user'], self.user)
+    
+    def test_delete_account(self):
+        self.client.session['user_id'] = self.user.id
+        response = self.client.post(reverse('delete_account'))
+        self.assertRedirects(response, '/account')
+        self.assertFalse(Users.objects.filter(id=self.user.id).exists())
         
