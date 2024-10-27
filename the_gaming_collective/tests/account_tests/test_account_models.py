@@ -230,3 +230,9 @@ class UsersModelTest(TestCase):
         self.assertEqual(user.username, "alicesmith")
         self.assertIsNotNone(user.created_at)
         self.assertIsNotNone(user.updated_at)
+        
+    def test_email_field_label(self):
+        """Test that the email field label is set correctly."""
+        field_label = self.user1._meta.get_field("email").verbose_name
+        self.assertEqual(field_label, "User Email")
+        
