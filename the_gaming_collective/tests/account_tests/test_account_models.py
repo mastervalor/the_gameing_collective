@@ -255,5 +255,12 @@ class UsersModelTest(TestCase):
                 last_name="Doe",
                 username="a" * 46
             )
-            
+    
+    def test_fav_devices_relationship(self):
+        """Test the many-to-many fav_devices relationship."""
+        self.user1.fav_devices.add(self.device1, self.device2)
+        self.assertEqual(self.user1.fav_devices.count(), 2)
+        self.assertIn(self.device1, self.user1.fav_devices.all())
+        self.assertIn(self.device2, self.user1.fav_devices.all())
+        
         
