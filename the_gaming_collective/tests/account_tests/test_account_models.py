@@ -215,3 +215,18 @@ class UsersModelTest(TestCase):
             last_name="Doe",
             username="janedoe"
         )
+        
+    def test_user_creation(self):
+        """Test that a User instance is created with correct field values."""
+        user = Users.objects.create(
+            email="newuser@example.com",
+            password="hashed_password",
+            first_name="Alice",
+            last_name="Smith",
+            username="alicesmith"
+        )
+        self.assertEqual(user.email, "newuser@example.com")
+        self.assertEqual(user.first_name, "Alice")
+        self.assertEqual(user.username, "alicesmith")
+        self.assertIsNotNone(user.created_at)
+        self.assertIsNotNone(user.updated_at)
