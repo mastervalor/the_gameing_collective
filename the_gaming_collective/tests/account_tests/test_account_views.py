@@ -58,4 +58,13 @@ class TestAccountViews(TestCase):
         postData = {'email': self.user.email, 'password': 'password123'}
         response = self.client.post(reverse('login_view'), postData)
         self.assertRedirects(response, '/')
-        self.assertEqual(self.client.session['user_id'], self.user.id)    
+        self.assertEqual(self.client.session['user_id'], self.user.id)
+        
+    def test_login_view_invalid_password(self):
+        postData = {'email': self.user.email, 'password': 'wrongpassword'}
+        response = self.client.post(reverse('login_view'), postData)
+        self.assertRedirects(response, '/account/login_create/')
+        messages_list = list(response.wsgi_request._messages)
+        self.assertIn("This password doesn't match", str(messages_list[0]))
+
+    
