@@ -196,3 +196,8 @@ class DevicesModelTest(TestCase):
     def test_invalid_device_max_length(self):
         with self.assertRaises(Exception):
             Devices.objects.create(device="Tablet")
+            
+class UsersModelTest(TestCase):
+    def setUp(self):
+        self.device1 = Devices.objects.create(device="Laptop", dev_id=123)
+        self.device2 = Devices.objects.create(device="Phone", dev_id=456)
