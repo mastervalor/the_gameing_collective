@@ -21,3 +21,10 @@ class TestAccountViews(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response, 200)
         self.assertTemplateUsed(response, 'ogin_create.htm')
+        
+    def test_logout_view(self):
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('logout_view'))
+        self.assertRedirects(response, '/')
+        
+        
