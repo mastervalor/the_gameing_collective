@@ -104,4 +104,17 @@ class TestAccountViews(TestCase):
         self.assertEqual(self.user.first_name, 'UpdatedFirstName')
         self.assertEqual(self.user.email, 'updated@example.com')
         self.assertIn(self.device, self.user.fav_devices.all())
+    
+    def test_update_account_invalid(self):
+        self.client.session['user_id'] = self.user.id
+        postData = {
+            'first_name': 'A',  # Invalid first name
+            'last_name': 'UpdatedLastName',
+            'email': 'invalidemail',  # Invalid email format
+            'username': 'updateduser'
+        }
+        response = self.client.post(reverse('update_account'), postData)
+        self.assertRedirects(response, '/account/edit_account')
+        messages_list = list(response.wsgi_request._messages)
+        self.assertGreater(len(messages_list), 0)
         
