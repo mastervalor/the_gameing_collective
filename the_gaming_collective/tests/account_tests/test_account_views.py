@@ -26,5 +26,16 @@ class TestAccountViews(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(reverse('logout_view'))
         self.assertRedirects(response, '/')
-        
+    
+    def test_account_creation_valid_data(self):
+        postData = {
+            'first_name': 'Alice',
+            'last_name': 'Smith',
+            'email': 'alice@example.com',
+            'password': 'ValidPassword1!',
+            'password_confirm': 'ValidPassword1!'
+        }
+        response = self.client.post(reverse('account_creation'), postData)
+        self.assertRedirects(response, '/account/finalize')
+        self.assertTrue(Users.objects.filter(email='alice@example.com').exists())
         
