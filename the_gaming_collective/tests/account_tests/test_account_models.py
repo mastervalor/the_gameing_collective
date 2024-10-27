@@ -276,3 +276,10 @@ class UsersModelTest(TestCase):
         updated_user = Users.objects.get(id=self.user1.id)
         self.assertEqual(updated_user.first_name, "Johnny")
         
+    def test_user_deletion(self):
+        """Test deleting a user instance."""
+        user_id = self.user2.id
+        self.user2.delete()
+        with self.assertRaises(Users.DoesNotExist):
+            Users.objects.get(id=user_id)
+            
