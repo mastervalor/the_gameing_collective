@@ -39,3 +39,16 @@ class TestAccountViews(TestCase):
         self.assertRedirects(response, '/account/finalize')
         self.assertTrue(Users.objects.filter(email='alice@example.com').exists())
         
+    def test_account_creation_invalid_data(self):
+        postData = {
+            'first_name': 'A',  # Invalid first name (too short)
+            'last_name': 'Smith',
+            'email': 'invalidemail',  # Invalid email format
+            'password': 'password',
+            'password_confirm': 'password123'  # Passwords do not match
+        }
+        response = self.client.post(reverse('account_creation'), postData)
+        self.assertRedirects(response, '/account/user/create')
+        messages_list = list(response.wsgi_request._messages)
+        self.assertGreater(len(messages_list), 0)
+        
