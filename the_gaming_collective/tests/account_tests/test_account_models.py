@@ -236,4 +236,12 @@ class UsersModelTest(TestCase):
         field_label = self.user1._meta.get_field("email").verbose_name
         self.assertEqual(field_label, "User Email")
     
-    
+    def test_user_field_max_length(self):
+        """Test max_length constraints on relevant fields."""
+        max_length_username = self.user1._meta.get_field("username").max_length
+        max_length_first_name = self.user1._meta.get_field("first_name").max_length
+        max_length_last_name = self.user1._meta.get_field("last_name").max_length
+        self.assertEqual(max_length_username, 45)
+        self.assertEqual(max_length_first_name, 45)
+        self.assertEqual(max_length_last_name, 45)
+        
