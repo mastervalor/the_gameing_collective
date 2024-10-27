@@ -269,4 +269,10 @@ class UsersModelTest(TestCase):
         self.assertIn(self.user2, self.user1.friends.all())
         self.assertIn(self.user1, self.user2.friends.all()) 
         
-    
+    def test_user_update(self):
+        """Test updating an existing user."""
+        self.user1.first_name = "Johnny"
+        self.user1.save()
+        updated_user = Users.objects.get(id=self.user1.id)
+        self.assertEqual(updated_user.first_name, "Johnny")
+        
