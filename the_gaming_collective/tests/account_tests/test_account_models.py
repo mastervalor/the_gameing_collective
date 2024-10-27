@@ -235,4 +235,5 @@ class UsersModelTest(TestCase):
         """Test that the email field label is set correctly."""
         field_label = self.user1._meta.get_field("email").verbose_name
         self.assertEqual(field_label, "User Email")
-        
+    
+    
