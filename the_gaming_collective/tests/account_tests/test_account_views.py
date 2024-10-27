@@ -88,4 +88,20 @@ class TestAccountViews(TestCase):
         response = self.client.post(reverse('delete_account'))
         self.assertRedirects(response, '/account')
         self.assertFalse(Users.objects.filter(id=self.user.id).exists())
+    
+    def test_update_account_valid(self):
+        self.client.session['user_id'] = self.user.id
+        postData = {
+            'first_name': 'UpdatedFirstName',
+            'last_name': 'UpdatedLastName',
+            'email': 'updated@example.com',
+            'username': 'updateduser',
+            'devices': [self.device.id]
+        }
+        response = self.client.post(reverse('update_account'), postData)
+        self.assertRedirects(response, '/')
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, 'UpdatedFirstName')
+        self.assertEqual(self.user.email, 'updated@example.com')
+        self.assertIn(self.device, self.user.fav_devices.all())
         
