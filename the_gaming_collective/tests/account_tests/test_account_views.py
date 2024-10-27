@@ -67,4 +67,12 @@ class TestAccountViews(TestCase):
         messages_list = list(response.wsgi_request._messages)
         self.assertIn("This password doesn't match", str(messages_list[0]))
 
-    
+    def test_finalize_account(self):
+        self.client.session['user_id'] = self.user.id
+        postData = {'username': 'newusername', 'devices': [self.device.id]}
+        response = self.client.post(reverse('finalize_account'), postData)
+        self.assertRedirects(response, '/')
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, 'newusername')
+        self.assertIn(self.device, self.user.fav_devices.all())
+        
