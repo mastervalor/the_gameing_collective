@@ -263,4 +263,10 @@ class UsersModelTest(TestCase):
         self.assertIn(self.device1, self.user1.fav_devices.all())
         self.assertIn(self.device2, self.user1.fav_devices.all())
         
+    def test_friends_relationship(self):
+        """Test the many-to-many symmetrical friends relationship."""
+        self.user1.friends.add(self.user2)
+        self.assertIn(self.user2, self.user1.friends.all())
+        self.assertIn(self.user1, self.user2.friends.all()) 
         
+    
