@@ -75,4 +75,11 @@ class TestAccountViews(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, 'newusername')
         self.assertIn(self.device, self.user.fav_devices.all())
+    
+    def test_edit_account_view(self):
+        self.client.session['user_id'] = self.user.id
+        response = self.client.get(reverse('edit_account'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'edit_account.html')
+        self.assertEqual(response.context['user'], self.user)
         
