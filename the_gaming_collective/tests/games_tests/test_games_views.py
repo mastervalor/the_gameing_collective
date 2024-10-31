@@ -65,5 +65,19 @@ class TestGamesViews(TestCase):
         self.assertEqual(len(single_game), 1)
         self.assertEqual(single_game[0]["name"], "Single Game")
     
-    
+    @patch('games.views.get_games')
+    def test_one_game_view(self, mock_get_games):
+        """Test the one_game view for displaying a single game's details."""
+        game_id = 1
+        mock_data = [
+            {"id": 1, "name": "Single Game"},
+            {"id": 2, "name": "Other Game"},
+        ]
+        mock_get_games.return_value = mock_data
+
+        response = self.client.get(reverse('one_game', args=[game_id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "one_game.html")
+        self.assertIn("single_game", response.context)
+        self.assertEqual(response.context["single_game"][0]["name"], "Single Game")
     
