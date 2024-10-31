@@ -33,4 +33,12 @@ class TestUrls(SimpleTestCase):
     def test_update_account_url_resolves(self):
         url = '/edit_account'
         self.assertEqual(resolve(url).func, update_account)
+    
+    def test_delete_account_url_resolves(self):
+        url = '/delete_account'
+        self.assertEqual(resolve(url).func, delete_account)
+    
+    def test_logout_url_resolves(self):
+        url = '/logout'
+        self.assertEqual(resolve(url).func, logout_view)
         
