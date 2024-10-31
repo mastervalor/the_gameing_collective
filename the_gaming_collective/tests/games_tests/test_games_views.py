@@ -22,4 +22,18 @@ class TestGamesViews(TestCase):
         self.assertIn("recently_released_games", response.context)
         self.assertEqual(len(response.context["upcoming_games"]), 1)
         self.assertEqual(len(response.context["recently_released_games"]), 1)
-        
+    
+    def test_get_upcoming_games(self):
+        """Test filtering games with future release dates in get_upcoming_games."""
+        today = datetime.datetime.now().date()
+        future_date = int((datetime.datetime.now() + datetime.timedelta(days=10)).timestamp())
+        past_date = int((datetime.datetime.now() - datetime.timedelta(days=30)).timestamp())
+
+        game_data = [
+            {"id": 1, "name": "Future Game", "first_release_date": future_date, "parent_game": None, "version_title": None},
+            {"id": 2, "name": "Past Game", "first_release_date": past_date, "parent_game": None, "version_title": None},
+        ]
+
+        upcoming_games = get_upcoming_games(game_data)
+        self.assertEqual(len(upcoming_games), 1)
+        self.assertEqual(upcoming_games[0]["name"], "Future Game")
