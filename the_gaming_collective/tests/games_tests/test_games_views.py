@@ -53,4 +53,17 @@ class TestGamesViews(TestCase):
         self.assertEqual(len(recently_released_games), 1)
         self.assertEqual(recently_released_games[0]["name"], "Recent Game")
         
+    def test_get_one_game(self):
+        """Test retrieving a single game by ID in get_one_game."""
+        game_id = 1
+        game_data = [
+            {"id": 1, "name": "Single Game"},
+            {"id": 2, "name": "Other Game"},
+        ]
+
+        single_game = get_one_game(game_data, game_id)
+        self.assertEqual(len(single_game), 1)
+        self.assertEqual(single_game[0]["name"], "Single Game")
+    
+    
     
