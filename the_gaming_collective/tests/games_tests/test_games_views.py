@@ -37,3 +37,20 @@ class TestGamesViews(TestCase):
         upcoming_games = get_upcoming_games(game_data)
         self.assertEqual(len(upcoming_games), 1)
         self.assertEqual(upcoming_games[0]["name"], "Future Game")
+        
+    def test_get_recent_releases(self):
+        """Test filtering games released in the past 90 days in get_recent_releases."""
+        today = datetime.datetime.now().date()
+        recent_date = int((datetime.datetime.now() - datetime.timedelta(days=30)).timestamp())
+        old_date = int((datetime.datetime.now() - datetime.timedelta(days=100)).timestamp())
+
+        game_data = [
+            {"id": 1, "name": "Recent Game", "first_release_date": recent_date, "parent_game": None, "version_title": None},
+            {"id": 2, "name": "Old Game", "first_release_date": old_date, "parent_game": None, "version_title": None},
+        ]
+
+        recently_released_games = get_recent_releases(game_data)
+        self.assertEqual(len(recently_released_games), 1)
+        self.assertEqual(recently_released_games[0]["name"], "Recent Game")
+        
+    
