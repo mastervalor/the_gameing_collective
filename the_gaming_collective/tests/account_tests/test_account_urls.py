@@ -17,4 +17,8 @@ class TestUrls(SimpleTestCase):
     def test_finalize_page_url_resolves(self):
         url = '/finalize'
         self.assertEqual(resolve(url).func, finalize_page)
+    
+    def test_finalize_account_url_resolves(self):
+        url = '/process'
+        self.assertEqual(resolve(url).func, finalize_account)
         
