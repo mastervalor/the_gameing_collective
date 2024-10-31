@@ -9,3 +9,8 @@ class TestUrls(SimpleTestCase):
     def test_login_create_url_resolves(self):
         url = '/login_create/'
         self.assertEqual(resolve(url).func, index)
+
+    def test_account_creation_url_resolves(self):
+        url = '/user/create'
+        self.assertEqual(resolve(url).func, account_creation)
+        
