@@ -85,4 +85,13 @@ class GamesModelTest(TestCase):
         self.review.delete()
         game.refresh_from_db()
         self.assertIsNone(game.review)
+    
+    def test_game_deletion(self):
+        """Test that deleting a game does not delete the associated user or review."""
+        game = Games.objects.create(game_api_id=106, genre="Puzzle", review=self.review)
+        game_id = game.id
+        game.delete()
+        self.assertFalse(Games.objects.filter(id=game_id).exists())
+        self.assertTrue(Reviews.objects.filter(id=self.review.id).exists())
+        self.assertTrue(Users.objects.filter(id=self.user.id).exists())
         
