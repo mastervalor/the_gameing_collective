@@ -42,3 +42,28 @@ class GetGamesCacheTest(TestCase):
         mock_get_games_in_batches.assert_called_once()
         self.assertEqual(result, mock_data)
         self.assertEqual(cache.get('games'), mock_data)
+        
+    @patch('general.igdb_api.igdb_token_check')
+    @patch('general.igdb_api.get_games_in_batches')
+    def test_get_games_cache_expired(self, mock_get_games_in_batches, mock_igdb_token_check):
+        """Test that expired cache triggers a fresh fetch."""
+        mock_data = [{"id": 3, "name": "Refreshed Game"}]
+        cache_key = 'games'
+        expiration_time_key = 'games_timeout'
+
+        # Set expired cache values
+        cache.set(cache_key, [{"id": 1, "name": "Old Game"}], 1800)
+        expired_time = datetime.now() - timedelta(seconds=10)
+        cache.set(expiration_time_key, expired_time, 1800)
+
+        # Update mock return
+        mock_get_games_in_batches.return_value = mock_data
+
+        result = get_games()
+
+        # Check that expired data was replaced with new data
+        mock_igdb_token_check.assert_called_once()
+        mock_get_games_in_batches.assert_called_once()
+        self.assertEqual(result, mock_data)
+        self.assertEqual(cache.get(cache_key), mock_data)
+        
