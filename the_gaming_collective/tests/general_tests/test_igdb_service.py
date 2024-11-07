@@ -27,3 +27,18 @@ class GetGamesCacheTest(TestCase):
         self.assertEqual(result, mock_data)
         mock_igdb_token_check.assert_not_called()
         mock_get_games_in_batches.assert_not_called()
+    
+    @patch('general.igdb_api.igdb_token_check')
+    @patch('general.igdb_api.get_games_in_batches')
+    def test_get_games_no_cache_data(self, mock_get_games_in_batches, mock_igdb_token_check):
+        """Test that data is fetched from IGDB if cache is empty or expired."""
+        mock_data = [{"id": 2, "name": "New Game"}]
+        mock_get_games_in_batches.return_value = mock_data
+
+        result = get_games()
+
+        # Check if data is fetched, token check is called, and cache is set
+        mock_igdb_token_check.assert_called_once()
+        mock_get_games_in_batches.assert_called_once()
+        self.assertEqual(result, mock_data)
+        self.assertEqual(cache.get('games'), mock_data)
