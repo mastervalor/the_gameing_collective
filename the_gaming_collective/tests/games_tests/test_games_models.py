@@ -41,3 +41,20 @@ class ReviewsModelTest(TestCase):
         review.delete()
         self.assertFalse(Reviews.objects.filter(id=review_id).exists())
         self.assertTrue(Users.objects.filter(id=self.user.id).exists())
+
+class GamesModelTest(TestCase):
+    def setUp(self):
+        # Set up a test user and review
+        self.user = Users.objects.create(
+            email="gamer@example.com",
+            password="hashed_password",
+            first_name="Alice",
+            last_name="Smith",
+            username="gamer"
+        )
+        self.review = Reviews.objects.create(
+            review="Amazing RPG!",
+            score=9.0,
+            reviewer=self.user,
+            game_api_id=102
+        )
