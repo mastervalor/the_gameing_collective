@@ -26,3 +26,10 @@ class ReviewsModelTest(TestCase):
         self.assertEqual(review.reviewer, self.user)
         self.assertIsNotNone(review.created_at)
         self.assertIsNotNone(review.updated_at)
+        
+    def test_review_score_constraints(self):
+        """Test that the review score respects max_digits and decimal_places."""
+        with self.assertRaises(Exception):
+            Reviews.objects.create(review="Invalid score", score=100.5, reviewer=self.user, game_api_id=101)
+        with self.assertRaises(Exception):
+            Reviews.objects.create(review="Invalid score", score=8.55, reviewer=self.user, game_api_id=101)
