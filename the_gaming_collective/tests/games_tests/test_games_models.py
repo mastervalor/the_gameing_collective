@@ -58,3 +58,17 @@ class GamesModelTest(TestCase):
             reviewer=self.user,
             game_api_id=102
         )
+    
+    def test_create_game(self):
+        """Test that a game can be created with valid fields and relationships."""
+        game = Games.objects.create(
+            game_api_id=103,
+            genre="RPG",
+            review=self.review
+        )
+        self.assertEqual(game.game_api_id, 103)
+        self.assertEqual(game.genre, "RPG")
+        self.assertEqual(game.review, self.review)
+        self.assertIsNotNone(game.created_at)
+        self.assertIsNotNone(game.updated_at)
+        
