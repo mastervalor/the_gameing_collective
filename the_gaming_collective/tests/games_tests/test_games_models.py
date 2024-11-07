@@ -12,3 +12,17 @@ class ReviewsModelTest(TestCase):
             last_name="Doe",
             username="reviewer"
         )
+        
+    def test_create_review(self):
+        """Test that a review can be created with valid fields."""
+        review = Reviews.objects.create(
+            review="Great game!",
+            score=8.5,
+            reviewer=self.user,
+            game_api_id=101
+        )
+        self.assertEqual(review.review, "Great game!")
+        self.assertEqual(review.score, 8.5)
+        self.assertEqual(review.reviewer, self.user)
+        self.assertIsNotNone(review.created_at)
+        self.assertIsNotNone(review.updated_at)
