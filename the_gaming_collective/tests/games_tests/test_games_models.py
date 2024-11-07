@@ -71,4 +71,10 @@ class GamesModelTest(TestCase):
         self.assertEqual(game.review, self.review)
         self.assertIsNotNone(game.created_at)
         self.assertIsNotNone(game.updated_at)
-        
+    
+    def test_fav_games_relationship(self):
+        """Test the ManyToMany relationship for favorite games."""
+        game = Games.objects.create(game_api_id=104, genre="Action")
+        game.fav_games.add(self.user)
+        self.assertIn(self.user, game.fav_games.all())
+        self.assertIn(game, self.user.favorite_games.all())
