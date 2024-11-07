@@ -16,4 +16,3 @@ class Games(models.Model):
     review = models.ForeignKey(Reviews, blank=True, null=True, on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
