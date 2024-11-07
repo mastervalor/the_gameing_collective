@@ -33,3 +33,11 @@ class ReviewsModelTest(TestCase):
             Reviews.objects.create(review="Invalid score", score=100.5, reviewer=self.user, game_api_id=101)
         with self.assertRaises(Exception):
             Reviews.objects.create(review="Invalid score", score=8.55, reviewer=self.user, game_api_id=101)
+
+    def test_review_deletion(self):
+        """Test that deleting a review does not affect the user."""
+        review = Reviews.objects.create(review="Great game!", score=8.5, reviewer=self.user, game_api_id=101)
+        review_id = review.id
+        review.delete()
+        self.assertFalse(Reviews.objects.filter(id=review_id).exists())
+        self.assertTrue(Users.objects.filter(id=self.user.id).exists())
