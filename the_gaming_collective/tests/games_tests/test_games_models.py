@@ -78,3 +78,11 @@ class GamesModelTest(TestCase):
         game.fav_games.add(self.user)
         self.assertIn(self.user, game.fav_games.all())
         self.assertIn(game, self.user.favorite_games.all())
+        
+    def test_review_deletion_with_game(self):
+        """Test that deleting a review also deletes it from the associated game."""
+        game = Games.objects.create(game_api_id=105, genre="Adventure", review=self.review)
+        self.review.delete()
+        game.refresh_from_db()
+        self.assertIsNone(game.review)
+        
