@@ -27,4 +27,13 @@ class IGDBApiKeyTests(TestCase):
         from general.igdb_service import IGDB_API_KEY
         self.assertEqual(IGDB_API_KEY, "new_api_key")
         
+    @patch('requests.post')
+    def test_update_api_key_failure(self, mock_post):
+        """Test that update_api_key does not update the API key if the request fails."""
+        mock_post.return_value.status_code = 400
+        from general.igdb_service import IGDB_API_KEY
+        old_api_key = IGDB_API_KEY
+
+        update_api_key()
+        self.assertEqual(IGDB_API_KEY, old_api_key) 
         
