@@ -77,4 +77,13 @@ class IGDBApiViewTests(TestCase):
         response = self.client.get(reverse('igdb_api'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), mock_data)
+    
+    @patch('general.igdb_service.get_games_in_batches')
+    def test_igdb_api_error(self, mock_get_games_in_batches):
+        """Test that igdb_api view returns an error response on exception."""
+        mock_get_games_in_batches.side_effect = Exception("API error")
+
+        response = self.client.get(reverse('igdb_api'))
+        self.assertEqual(response.status_code, 500)
+        self.assertIn("error", response.json())
         
