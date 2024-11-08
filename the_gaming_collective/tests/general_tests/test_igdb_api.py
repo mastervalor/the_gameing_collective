@@ -1,6 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch
-from general.igdb_service import validate_api_key, update_api_key, get_games_in_batches
+from general.igdb_service import validate_api_key, update_api_key, get_games_in_batches, igdb_api
 import requests
 
 class IGDBApiKeyTests(TestCase):
@@ -63,3 +63,11 @@ class GetGamesInBatchesTests(TestCase):
         mock_post.side_effect = requests.exceptions.RequestException
         result = get_games_in_batches()
         self.assertEqual(result, []) 
+
+
+class IGDBApiViewTests(TestCase):
+    @patch('general.igdb_service.get_games_in_batches')
+    def test_igdb_api_success(self, mock_get_games_in_batches):
+        """Test that igdb_api view returns games data on success."""
+        mock_data = [{"id": 1, "name": "Game 1"}]
+        mock_get_games_in_batches.return_value = mock_data
