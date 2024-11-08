@@ -1,4 +1,6 @@
 from django.test import TestCase
+from django.urls import reverse
+from django.http import JsonResponse
 from unittest.mock import patch
 from general.igdb_service import validate_api_key, update_api_key, get_games_in_batches, igdb_api
 import requests
@@ -71,3 +73,8 @@ class IGDBApiViewTests(TestCase):
         """Test that igdb_api view returns games data on success."""
         mock_data = [{"id": 1, "name": "Game 1"}]
         mock_get_games_in_batches.return_value = mock_data
+        
+        response = self.client.get(reverse('igdb_api'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), mock_data)
+        
