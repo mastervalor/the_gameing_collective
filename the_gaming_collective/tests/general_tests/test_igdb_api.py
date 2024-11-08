@@ -49,3 +49,11 @@ class GetGamesInBatchesTests(TestCase):
         result = get_games_in_batches()
         self.assertEqual(result, mock_data)
         mock_post.assert_called_once()
+    
+    @patch('requests.post')
+    def test_get_games_in_batches_timeout(self, mock_post):
+        """Test that get_games_in_batches handles timeouts gracefully."""
+        mock_post.side_effect = requests.exceptions.Timeout
+        result = get_games_in_batches()
+        self.assertEqual(result, [])
+        
